@@ -4,15 +4,15 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
   import ForksTheEggSampleWeb.AuthCase
   alias ForksTheEggSample.Accounts
 
-  @create_attrs %{email: "bill@mail.com", password: "hard2guess"}
-  @update_attrs %{email: "william@mail.com"}
+  @create_attrs %{email: "bill@example.com", password: "hard2guess"}
+  @update_attrs %{email: "william@example.com"}
   @invalid_attrs %{email: nil}
 
   setup %{conn: conn} = config do
     conn = conn |> bypass_through(ForksTheEggSampleWeb.Router, [:browser]) |> get("/")
     if email = config[:login] do
       user = add_user(email)
-      other = add_user("tony@mail.com")
+      other = add_user("tony@example.com")
       conn = conn |> put_session(:user_id, user.id) |> send_resp(:ok, "/")
       {:ok, %{conn: conn, user: user, other: other}}
     else
@@ -20,7 +20,7 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
     end
   end
 
-  @tag login: "reg@mail.com"
+  @tag login: "reg@example.com"
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, user_path(conn, :index)
     assert html_response(conn, 200) =~ "Listing Users"
@@ -52,36 +52,36 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
     assert html_response(conn, 200) =~ "New User"
   end
 
-  @tag login: "reg@mail.com"
+  @tag login: "reg@example.com"
   test "renders form for editing chosen user", %{conn: conn, user: user} do
     conn = get conn, user_path(conn, :edit, user)
     assert html_response(conn, 200) =~ "Edit User"
   end
 
-  @tag login: "reg@mail.com"
+  @tag login: "reg@example.com"
   test "updates chosen user when data is valid", %{conn: conn, user: user} do
     conn = put conn, user_path(conn, :update, user), user: @update_attrs
     assert redirected_to(conn) == user_path(conn, :show, user)
     updated_user = Accounts.get(user.id)
-    assert updated_user.email == "william@mail.com"
+    assert updated_user.email == "william@example.com"
     conn = get conn, user_path(conn, :show, user)
-    assert html_response(conn, 200) =~ "william@mail.com"
+    assert html_response(conn, 200) =~ "william@example.com"
   end
 
-  @tag login: "reg@mail.com"
+  @tag login: "reg@example.com"
   test "does not update chosen user and renders errors when data is invalid", %{conn: conn, user: user} do
     conn = put conn, user_path(conn, :update, user), user: @invalid_attrs
     assert html_response(conn, 200) =~ "Edit User"
   end
 
-  @tag login: "reg@mail.com"
+  @tag login: "reg@example.com"
   test "deletes chosen user", %{conn: conn, user: user} do
     conn = delete conn, user_path(conn, :delete, user)
     assert redirected_to(conn) == session_path(conn, :new)
     refute Accounts.get(user.id)
   end
 
-  @tag login: "reg@mail.com"
+  @tag login: "reg@example.com"
   test "cannot delete other user", %{conn: conn, other: other} do
     conn = delete conn, user_path(conn, :delete, other)
     assert redirected_to(conn) == user_path(conn, :index)

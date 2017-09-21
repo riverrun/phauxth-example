@@ -3,14 +3,14 @@ defmodule ForksTheEggSampleWeb.SessionControllerTest do
 
   import ForksTheEggSampleWeb.AuthCase
 
-  @create_attrs %{email: "robin@mail.com", password: "reallyHard2gue$$"}
-  @invalid_attrs %{email: "robin@mail.com", password: "cannotGue$$it"}
-  @unconfirmed_attrs %{email: "lancelot@mail.com", password: "reallyHard2gue$$"}
+  @create_attrs %{email: "robin@example.com", password: "reallyHard2gue$$"}
+  @invalid_attrs %{email: "robin@example.com", password: "cannotGue$$it"}
+  @unconfirmed_attrs %{email: "lancelot@example.com", password: "reallyHard2gue$$"}
 
   setup %{conn: conn} do
     conn = conn |> bypass_through(ForksTheEggSampleWeb.Router, [:browser]) |> get("/")
-    add_user("lancelot@mail.com")
-    user = add_user_confirmed("robin@mail.com")
+    add_user("lancelot@example.com")
+    user = add_user_confirmed("robin@example.com")
     {:ok, %{conn: conn, user: user}}
   end
 
