@@ -12,13 +12,11 @@ mix phauxth.new --confirm
 
 and then making these changes:
 
-* adding `{:phauxth, "~> 1.1"}` and `{:argon2_elixir, "~> 1.2"}` to the
-mix.exs file
+* adding `{:phauxth, "~> 1.1"}`, `{:argon2_elixir, "~> 1.2"}` and `{:bamboo, "~> 0.8"}`
+to the mix.exs file
 * replacing Bcrypt with Argon2 in the lib/forks_the_egg_sample/accounts/user.ex file
 * adding `crypto: Comeonin.Argon2` to the login function in the
 lib/forks_the_egg_sample_web/controllers/session_controller.ex file
-
-At the moment, there is no email module. That is coming soon.
 
 ## Running the Phoenix app
 
