@@ -35,7 +35,7 @@ defmodule ForksTheEggSampleWeb.PasswordResetController do
   defp update_password({:ok, user}, conn, _params) do
     Accounts.Message.reset_success(user.email)
     message = "Your password has been reset"
-    configure_session(conn, drop: true)
+    delete_session(conn, :user_id)
     |> success(message, session_path(conn, :new))
   end
   defp update_password({:error, %Ecto.Changeset{} = changeset}, conn, params) do
