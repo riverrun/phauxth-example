@@ -19,7 +19,7 @@ defmodule ForksTheEggSampleWeb.PasswordResetController do
     render(conn, "edit.html", key: key)
   end
   def edit(conn, _params) do
-    render(conn, ForksTheEggSample.ErrorView, "404.html")
+    render(conn, ForksTheEggSampleWeb.ErrorView, "404.html")
   end
 
   def update(conn, %{"password_reset" => params}) do

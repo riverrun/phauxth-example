@@ -34,4 +34,13 @@ defmodule ForksTheEggSampleWeb.SessionControllerTest do
     conn = delete conn, session_path(conn, :delete, user)
     assert redirected_to(conn) == page_path(conn, :index)
   end
+
+  test "remember me cookie is added / not added", %{conn: conn} do
+    rem_attrs = %{email: "robin@example.com", password: "reallyHard2gue$$", remember_me: true}
+    rem_conn = post conn, session_path(conn, :create), session: rem_attrs
+    assert rem_conn.resp_cookies["remember_me"]
+    rem_attrs = %{email: "robin@example.com", password: "reallyHard2gue$$", remember_me: false}
+    no_rem_conn = post conn, session_path(conn, :create), session: rem_attrs
+    refute no_rem_conn.resp_cookies["remember_me"]
+  end
 end
