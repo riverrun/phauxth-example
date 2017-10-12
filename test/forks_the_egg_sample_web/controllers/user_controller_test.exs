@@ -36,7 +36,7 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
     assert html_response(conn, 200) =~ "New User"
   end
 
-  @tag login: "reg"
+  @tag login: "reg@example.com"
   test "show chosen user's page", %{conn: conn, user: user} do
     conn = get conn, user_path(conn, :show, user)
     assert html_response(conn, 200) =~ "Show User"

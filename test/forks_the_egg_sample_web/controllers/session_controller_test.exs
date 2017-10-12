@@ -6,6 +6,7 @@ defmodule ForksTheEggSampleWeb.SessionControllerTest do
   @create_attrs %{email: "robin@example.com", password: "reallyHard2gue$$"}
   @invalid_attrs %{email: "robin@example.com", password: "cannotGue$$it"}
   @unconfirmed_attrs %{email: "lancelot@example.com", password: "reallyHard2gue$$"}
+  @rem_attrs %{email: "robin@example.com", password: "reallyHard2gue$$", remember_me: true}
 
   setup %{conn: conn} do
     conn = conn |> bypass_through(ForksTheEggSampleWeb.Router, [:browser]) |> get("/")
@@ -36,11 +37,9 @@ defmodule ForksTheEggSampleWeb.SessionControllerTest do
   end
 
   test "remember me cookie is added / not added", %{conn: conn} do
-    rem_attrs = %{email: "robin@example.com", password: "reallyHard2gue$$", remember_me: true}
-    rem_conn = post conn, session_path(conn, :create), session: rem_attrs
+    rem_conn = post conn, session_path(conn, :create), session: @rem_attrs
     assert rem_conn.resp_cookies["remember_me"]
-    rem_attrs = %{email: "robin@example.com", password: "reallyHard2gue$$", remember_me: false}
-    no_rem_conn = post conn, session_path(conn, :create), session: rem_attrs
+    no_rem_conn = post conn, session_path(conn, :create), session: Map.merge(@rem_attrs, %{remember_me: false})
     refute no_rem_conn.resp_cookies["remember_me"]
   end
 end
