@@ -8,6 +8,7 @@ defmodule ForksTheEggSampleWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug Phauxth.Authenticate
+    plug Phauxth.Remember
   end
 
   pipeline :api do

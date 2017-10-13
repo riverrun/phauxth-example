@@ -22,6 +22,7 @@ defmodule ForksTheEggSampleWeb.SessionController do
 
   def delete(conn, _) do
     delete_session(conn, :user_id)
+    |> Phauxth.Remember.delete_rem_cookie
     |> success("You have been logged out", page_path(conn, :index))
   end
 
@@ -29,7 +30,7 @@ defmodule ForksTheEggSampleWeb.SessionController do
   # See the documentation for Phauxth.Remember for more details.
   # If you do not want this, just remove this function and the
   # `|> add_remember_me(user.id, params)` line in the create function.
-  defp add_remember_me(conn, user_id, %{"remember_me" => true}) do
+  defp add_remember_me(conn, user_id, %{"remember_me" => "true"}) do
     Phauxth.Remember.add_rem_cookie(conn, user_id)
   end
   defp add_remember_me(conn, _, _), do: conn
