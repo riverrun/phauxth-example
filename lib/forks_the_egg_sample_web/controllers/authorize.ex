@@ -12,18 +12,6 @@ defmodule ForksTheEggSampleWeb.Authorize do
     apply(module, action_name(conn), [conn, params, current_user])
   end
 
-  def auth_action_id(%Plug.Conn{params: %{"user_id" => user_id} = params,
-      assigns: %{current_user: %{id: id} = current_user}} = conn, module) do
-    if user_id == to_string(id) do
-      apply(module, action_name(conn), [conn, params, current_user])
-    else
-      error(conn, "You are not authorized to view this page", user_path(conn, :index))
-    end
-  end
-  def auth_action_id(conn, _) do
-    error(conn, "You need to log in to view this page", session_path(conn, :new))
-  end
-
   def user_check(%Plug.Conn{assigns: %{current_user: nil}} = conn, _opts) do
     error(conn, "You need to log in to view this page", session_path(conn, :new))
   end
