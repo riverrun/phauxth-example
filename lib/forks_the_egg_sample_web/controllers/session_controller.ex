@@ -32,8 +32,11 @@ defmodule ForksTheEggSampleWeb.SessionController do
 
   # This function adds a remember_me cookie to the conn.
   # See the documentation for Phauxth.Remember for more details.
-  # If you do not want this, just remove this function and the
-  # `|> add_remember_me(user.id, params)` line in the create function.
+  # If you do not want this, remove this function, the
+  # `|> add_remember_me(user.id, params)` line in the create function,
+  # the `|> Phauxth.Remember.delete_rem_cookie` line in the delete
+  # function, the `plug Phauxth.Remember` in the router.ex file
+  # and edit the session/new.html.eex file.
   defp add_remember_me(conn, user_id, %{"remember_me" => "true"}) do
     Phauxth.Remember.add_rem_cookie(conn, user_id)
   end

@@ -2,13 +2,18 @@ defmodule ForksTheEggSampleWeb.PasswordResetControllerTest do
   use ForksTheEggSampleWeb.ConnCase
 
   import ForksTheEggSampleWeb.AuthCase
+  alias ForksTheEggSample.Accounts
 
   @update_attrs %{email: "gladys@example.com", password: "^hEsdg*F899"}
 
   setup %{conn: conn} do
     conn = conn |> bypass_through(ForksTheEggSampleWeb.Router, :browser) |> get("/")
-    add_reset_user("gladys@example.com")
-    {:ok, %{conn: conn}}
+    user = add_reset_user("gladys@example.com")
+    {:ok, %{conn: conn, user: user}}
+  end
+
+  defp get_user do
+    Accounts.get_by(%{"email" => "gladys@example.com"})
   end
 
   test "user can create a password reset request", %{conn: conn} do
@@ -16,6 +21,14 @@ defmodule ForksTheEggSampleWeb.PasswordResetControllerTest do
     conn = post(conn, password_reset_path(conn, :create), password_reset: valid_attrs)
     assert conn.private.phoenix_flash["info"] =~ "your inbox for instructions"
     assert redirected_to(conn) == page_path(conn, :index)
+  end
+
+  test "sessions are deleted when user creates a password reset request", %{conn: conn, user: user} do
+    valid_attrs = %{email: "gladys@example.com"}
+    add_phauxth_session(conn, user)
+    assert get_user().sessions != %{}
+    post(conn, password_reset_path(conn, :create), password_reset: valid_attrs)
+    assert get_user().sessions == %{}
   end
 
   test "create function fails for no user", %{conn: conn} do
