@@ -2,6 +2,7 @@ defmodule ForksTheEggSampleWeb.SessionController do
   use ForksTheEggSampleWeb, :controller
 
   import ForksTheEggSampleWeb.Authorize
+  alias ForksTheEggSample.Accounts
   alias Phauxth.Confirm.Login
 
   def new(conn, _) do
@@ -9,9 +10,11 @@ defmodule ForksTheEggSampleWeb.SessionController do
   end
 
   def create(conn, %{"session" => params}) do
-    case Login.verify(params, ForksTheEggSample.Accounts, crypto: Comeonin.Argon2) do
+    case Login.verify(params, Accounts, crypto: Comeonin.Argon2) do
       {:ok, user} ->
-        put_session(conn, :user_id, user.id)
+        session_id = Phauxth.Login.gen_session_id("F")
+        Accounts.add_session(user, session_id, System.system_time(:second))
+        Phauxth.Login.add_session(conn, session_id, user.id)
         |> add_remember_me(user.id, params)
         |> configure_session(renew: true)
         |> success("You have been logged in", user_path(conn, :index))
@@ -21,7 +24,8 @@ defmodule ForksTheEggSampleWeb.SessionController do
   end
 
   def delete(conn, _) do
-    delete_session(conn, :user_id)
+    #Accounts.delete_session
+    delete_session(conn, :phauxth_session_id)
     |> Phauxth.Remember.delete_rem_cookie
     |> success("You have been logged out", page_path(conn, :index))
   end

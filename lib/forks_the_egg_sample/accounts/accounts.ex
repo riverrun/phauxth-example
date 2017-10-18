@@ -55,4 +55,18 @@ defmodule ForksTheEggSample.Accounts do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  def add_session(%User{sessions: sessions} = user, session_id, timestamp) do
+    change(user, sessions: put_in(sessions, [session_id], timestamp))
+    |> Repo.update
+  end
+
+  def delete_session(%User{sessions: sessions} = user, session_id) do
+    change(user, sessions: Map.delete(sessions, session_id))
+    |> Repo.update
+  end
+
+  def wipe_sessions(%User{} = user) do
+    change(user, sessions: %{}) |> Repo.update
+  end
 end

@@ -9,6 +9,7 @@ defmodule ForksTheEggSample.Accounts.User do
     field :password_hash, :string
     field :confirmed_at, :utc_datetime
     field :reset_sent_at, :utc_datetime
+    field :sessions, {:map, :integer}, default: %{}
 
     timestamps()
   end

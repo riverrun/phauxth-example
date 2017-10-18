@@ -23,6 +23,12 @@ defmodule ForksTheEggSampleWeb.AuthCase do
     |> Repo.update!
   end
 
+  def add_phauxth_session(conn, user) do
+    session_id = Phauxth.Login.gen_session_id("F")
+    Accounts.add_session(user, session_id, System.system_time(:second))
+    Phauxth.Login.add_session(conn, session_id, user.id)
+  end
+
   def add_token_conn(conn, user) do
     user_token = Phauxth.Token.sign(ForksTheEggSampleWeb.Endpoint, user.id)
     conn

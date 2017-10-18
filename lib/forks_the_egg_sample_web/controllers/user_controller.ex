@@ -51,7 +51,7 @@ defmodule ForksTheEggSampleWeb.UserController do
 
   def delete(%Plug.Conn{assigns: %{current_user: user}} = conn, _) do
     {:ok, _user} = Accounts.delete_user(user)
-    delete_session(conn, :user_id)
+    delete_session(conn, :phauxth_session_id)
     |> success("User deleted successfully", session_path(conn, :new))
   end
 end

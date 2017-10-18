@@ -39,7 +39,7 @@ defmodule ForksTheEggSample.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:phauxth, "~> 1.1"},
+      {:phauxth, git: "https://github.com/riverrun/phauxth.git", branch: "new_sessions"},
       {:argon2_elixir, "~> 1.2"},
       {:bamboo, "~> 0.8"},
       {:gettext, "~> 0.11"},

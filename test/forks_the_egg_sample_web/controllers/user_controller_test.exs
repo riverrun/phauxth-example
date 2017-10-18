@@ -13,7 +13,7 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
     if email = config[:login] do
       user = add_user(email)
       other = add_user("tony@example.com")
-      conn = conn |> put_session(:user_id, user.id) |> send_resp(:ok, "/")
+      conn = conn |> add_phauxth_session(user) |> send_resp(:ok, "/")
       {:ok, %{conn: conn, user: user, other: other}}
     else
       {:ok, %{conn: conn}}
