@@ -66,8 +66,9 @@ defmodule ForksTheEggSample.Accounts do
     |> Repo.update
   end
 
-  def remove_old_sessions do
-    users = list_users()
-    users
+  def remove_old_sessions(session_age) do
+    now = System.system_time(:second)
+    Enum.map(list_users(), &change(&1, sessions: :maps.filter(fn _, time ->
+      time + session_age > now end, &1.sessions)) |> Repo.update)
   end
 end
