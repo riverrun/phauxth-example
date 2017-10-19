@@ -12,9 +12,9 @@ defmodule ForksTheEggSampleWeb.SessionController do
   def create(conn, %{"session" => params}) do
     case Login.verify(params, Accounts, crypto: Comeonin.Argon2) do
       {:ok, user} ->
-        session_id = Phauxth.Login.gen_session_id("F")
+        session_id = Login.gen_session_id("F")
         Accounts.add_session(user, session_id, System.system_time(:second))
-        Phauxth.Login.add_session(conn, session_id, user.id)
+        Login.add_session(conn, session_id, user.id)
         |> add_remember_me(user.id, params)
         |> configure_session(renew: true)
         |> success("You have been logged in", user_path(conn, :index))

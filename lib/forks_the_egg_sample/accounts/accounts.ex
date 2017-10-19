@@ -29,8 +29,7 @@ defmodule ForksTheEggSample.Accounts do
 
   def create_password_reset(endpoint, attrs) do
     with %User{} = user <- get_by(attrs) do
-      change(user, %{reset_sent_at: DateTime.utc_now}) |> Repo.update
-      wipe_sessions(user)
+      change(user, %{reset_sent_at: DateTime.utc_now, sessions: %{}}) |> Repo.update
       Log.info(%Log{user: user.id, message: "password reset requested"})
       Phauxth.Token.sign(endpoint, attrs)
     end
@@ -67,7 +66,8 @@ defmodule ForksTheEggSample.Accounts do
     |> Repo.update
   end
 
-  def wipe_sessions(%User{} = user) do
-    change(user, sessions: %{}) |> Repo.update
+  def remove_old_sessions do
+    users = list_users()
+    users
   end
 end
