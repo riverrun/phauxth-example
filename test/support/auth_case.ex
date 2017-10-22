@@ -29,13 +29,6 @@ defmodule ForksTheEggSampleWeb.AuthCase do
     Phauxth.Login.add_session(conn, session_id, user.id)
   end
 
-  def add_token_conn(conn, user) do
-    user_token = Phauxth.Token.sign(ForksTheEggSampleWeb.Endpoint, user.id)
-    conn
-    |> put_req_header("accept", "application/json")
-    |> put_req_header("authorization", user_token)
-  end
-
   def gen_key(email) do
     Phauxth.Token.sign(ForksTheEggSampleWeb.Endpoint, %{"email" => email})
   end
