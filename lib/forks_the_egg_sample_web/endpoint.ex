@@ -36,7 +36,7 @@ defmodule ForksTheEggSampleWeb.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_forks_the_egg_sample_key",
-    signing_salt: "R/PENz8s"
+    signing_salt: "uOxC9Oi/"
 
   plug ForksTheEggSampleWeb.Router
 

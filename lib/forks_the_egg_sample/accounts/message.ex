@@ -14,6 +14,9 @@ defmodule ForksTheEggSample.Accounts.Message do
 
   Bamboo has adapters for Mailgun, Mailjet, Mandrill, Sendgrid, SMTP,
   SparkPost, PostageApp, Postmark and Sendcloud.
+
+  There is also a LocalAdapter, which is great for local development.
+
   See [Bamboo](https://github.com/thoughtbot/bamboo) for more information.
 
   ## Other email / phone library
@@ -23,6 +26,7 @@ defmodule ForksTheEggSample.Accounts.Message do
   1. Edit this file, using the email / phone library of your choice
   2. Remove the lib/forks_the_egg_sample/mailer.ex file
   3. Remove the Bamboo entries in the config/config.exs and config/test.exs files
+  4. Remove bamboo from the deps section in the mix.exs file
 
   """
 

@@ -56,6 +56,10 @@ defmodule ForksTheEggSample.Accounts do
     User.changeset(user, %{})
   end
 
+  def list_sessions(user_id) do
+    with user when is_map(user) <- Repo.get(User, user_id), do: user.sessions
+  end
+
   def add_session(%User{sessions: sessions} = user, session_id, timestamp) do
     change(user, sessions: put_in(sessions, [session_id], timestamp))
     |> Repo.update

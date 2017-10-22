@@ -39,8 +39,8 @@ defmodule ForksTheEggSample.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:phauxth, git: "https://github.com/riverrun/phauxth.git", branch: "new_sessions"},
-      {:argon2_elixir, "~> 1.2"},
+      {:phauxth, git: "http://github.com/riverrun/phauxth.git", branch: "new_sessions"},
+      {:bcrypt_elixir, "~> 1.0"},
       {:bamboo, "~> 0.8"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"}

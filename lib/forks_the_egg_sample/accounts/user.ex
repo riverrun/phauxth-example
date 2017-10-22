@@ -49,9 +49,10 @@ defmodule ForksTheEggSample.Accounts.User do
     end)
   end
 
+  # If you are using Argon2 or Pbkdf2, change Bcrypt to Argon2 or Pbkdf2
   defp put_pass_hash(%Ecto.Changeset{valid?: true, changes:
       %{password: password}} = changeset) do
-    change(changeset, Comeonin.Argon2.add_hash(password))
+    change(changeset, Comeonin.Bcrypt.add_hash(password))
   end
   defp put_pass_hash(changeset), do: changeset
 

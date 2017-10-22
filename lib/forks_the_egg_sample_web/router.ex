@@ -11,10 +11,6 @@ defmodule ForksTheEggSampleWeb.Router do
     plug Phauxth.Remember
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
   scope "/", ForksTheEggSampleWeb do
     pipe_through :browser
 

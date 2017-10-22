@@ -5,6 +5,7 @@ defmodule ForksTheEggSampleWeb.UserController do
   alias Phauxth.Log
   alias ForksTheEggSample.Accounts
 
+  # the following plugs are defined in the controllers/authorize.ex file
   plug :user_check when action in [:index, :show]
   plug :id_check when action in [:edit, :update, :delete]
 
