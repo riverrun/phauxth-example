@@ -53,6 +53,13 @@ defmodule ForksTheEggSampleWeb.SessionControllerTest do
     assert Accounts.list_sessions(user.id) == %{}
   end
 
+  test "redirects to previously requested resource", %{conn: conn, user: user} do
+    conn = get conn, user_path(conn, :show, user)
+    assert redirected_to(conn) == session_path(conn, :new)
+    conn = post conn, session_path(conn, :create), session: @create_attrs
+    assert redirected_to(conn) == user_path(conn, :show, user)
+  end
+
   test "remember me cookie is added / not added", %{conn: conn} do
     rem_conn = post conn, session_path(conn, :create), session: @rem_attrs
     assert rem_conn.resp_cookies["remember_me"]

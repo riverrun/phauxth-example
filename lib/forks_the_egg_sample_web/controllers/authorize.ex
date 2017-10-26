@@ -49,6 +49,7 @@ defmodule ForksTheEggSampleWeb.Authorize do
 
   def error(conn, message, path) do
     conn
+    |> put_session(:request_path, current_path(conn))
     |> put_flash(:error, message)
     |> redirect(to: path)
     |> halt
