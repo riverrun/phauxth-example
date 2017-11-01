@@ -9,7 +9,7 @@ defmodule ForksTheEggSampleWeb.Authorize do
   # See the [Authorization wiki page](https://github.com/riverrun/phauxth/wiki/Authorization)
   # for more information and examples.
   def auth_action(%Plug.Conn{assigns: %{current_user: nil}} = conn, _) do
-    error(conn, "You need to log in to view this page", session_path(conn, :new))
+    need_login(conn)
   end
   def auth_action(%Plug.Conn{assigns: %{current_user: current_user},
       params: params} = conn, module) do
@@ -19,7 +19,7 @@ defmodule ForksTheEggSampleWeb.Authorize do
   # Plug to only allow authenticated users to access the resource.
   # See the user controller for an example.
   def user_check(%Plug.Conn{assigns: %{current_user: nil}} = conn, _opts) do
-    error(conn, "You need to log in to view this page", session_path(conn, :new))
+    need_login(conn)
   end
   def user_check(conn, _opts), do: conn
 
@@ -33,7 +33,7 @@ defmodule ForksTheEggSampleWeb.Authorize do
   # Plug to only allow authenticated users with the correct id to access the resource.
   # See the user controller for an example.
   def id_check(%Plug.Conn{assigns: %{current_user: nil}} = conn, _opts) do
-    error(conn, "You need to log in to view this page", session_path(conn, :new))
+    need_login(conn)
   end
   def id_check(%Plug.Conn{params: %{"id" => id},
       assigns: %{current_user: current_user}} = conn, _opts) do
@@ -49,9 +49,20 @@ defmodule ForksTheEggSampleWeb.Authorize do
 
   def error(conn, message, path) do
     conn
-    |> put_session(:request_path, current_path(conn))
     |> put_flash(:error, message)
     |> redirect(to: path)
     |> halt
+  end
+
+  def login_success(conn, path) do
+    path = get_session(conn, :request_path) || path
+    delete_session(conn, :request_path)
+    |> success("You have been logged in", get_session(conn, :request_path) || path)
+  end
+
+  def need_login(conn) do
+    conn
+    |> put_session(:request_path, current_path(conn))
+    |> error("You need to log in to view this page", session_path(conn, :new))
   end
 end
