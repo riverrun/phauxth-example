@@ -24,8 +24,7 @@ config :phauxth,
 
 # Configures mailer
 config :forks_the_egg_sample, ForksTheEggSample.Mailer,
-  adapter: Bamboo.MandrillAdapter,
-  api_key: System.get_env("MANDRILL_API_KEY")
+  adapter: Bamboo.LocalAdapter
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -19,6 +19,15 @@ and then adding the following lines to the deps section in the mix.exs file:
 {:bamboo, "~> 0.8"},
 ```
 
+## Setting up bamboo email library
+
+The bamboo email library is configured in the `config/config.exs`, using
+the LocalAdapter, and `config/test.exs`, using the TestAdapter, files.
+
+The LocalAdapter is great for development, but to actually send emails to
+users, you will need to setup a different adapter. For more information
+about the available adapters, see the [bamboo README](https://github.com/thoughtbot/bamboo).
+
 ## Running the Phoenix app
 
 To start your Phoenix server:
