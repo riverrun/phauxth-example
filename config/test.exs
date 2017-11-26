@@ -18,6 +18,13 @@ config :forks_the_egg_sample, ForksTheEggSample.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
+# Comeonin password hashing test config
+#config :argon2_elixir,
+  #t_cost: 2,
+  #m_cost: 8
+config :bcrypt_elixir, :log_rounds, 4
+#config :pbkdf2_elixir, :rounds, 1
+
 # Configures mailer for testing
 config :forks_the_egg_sample, ForksTheEggSample.Mailer,
   adapter: Bamboo.TestAdapter
