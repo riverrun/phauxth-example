@@ -6,8 +6,8 @@ defmodule ForksTheEggSampleWeb.UserController do
   alias ForksTheEggSample.Accounts
 
   # the following plugs are defined in the controllers/authorize.ex file
-  plug :user_check when action in [:index, :show]
-  plug :id_check when action in [:edit, :update, :delete]
+  plug(:user_check when action in [:index, :show])
+  plug(:id_check when action in [:edit, :update, :delete])
 
   def index(conn, _) do
     users = Accounts.list_users()
@@ -21,18 +21,20 @@ defmodule ForksTheEggSampleWeb.UserController do
 
   def create(conn, %{"user" => %{"email" => email} = user_params}) do
     key = Phauxth.Token.sign(conn, %{"email" => email})
+
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         Log.info(%Log{user: user.id, message: "user created"})
         Accounts.Message.confirm_request(email, key)
         success(conn, "User created successfully", session_path(conn, :new))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
   def show(%Plug.Conn{assigns: %{current_user: user}} = conn, %{"id" => id}) do
-    user = id == to_string(user.id) and user || Accounts.get(id)
+    user = (id == to_string(user.id) and user) || Accounts.get(id)
     render(conn, "show.html", user: user)
   end
 
@@ -45,6 +47,7 @@ defmodule ForksTheEggSampleWeb.UserController do
     case Accounts.update_user(user, user_params) do
       {:ok, user} ->
         success(conn, "User updated successfully", user_path(conn, :show, user))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
     end
@@ -52,6 +55,7 @@ defmodule ForksTheEggSampleWeb.UserController do
 
   def delete(%Plug.Conn{assigns: %{current_user: user}} = conn, _) do
     {:ok, _user} = Accounts.delete_user(user)
+
     delete_session(conn, :phauxth_session_id)
     |> success("User deleted successfully", session_path(conn, :new))
   end

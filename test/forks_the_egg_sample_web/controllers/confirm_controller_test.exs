@@ -26,5 +26,4 @@ defmodule ForksTheEggSampleWeb.ConfirmControllerTest do
     assert conn.private.phoenix_flash["error"] =~ "Invalid credentials"
     assert redirected_to(conn) == session_path(conn, :new)
   end
-
 end

@@ -11,6 +11,7 @@ defmodule ForksTheEggSampleWeb.ConfirmController do
         message = "Your account has been confirmed"
         Accounts.Message.confirm_success(user.email)
         success(conn, message, session_path(conn, :new))
+
       {:error, message} ->
         error(conn, message, session_path(conn, :new))
     end

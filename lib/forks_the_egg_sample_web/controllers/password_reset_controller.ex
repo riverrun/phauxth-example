@@ -18,6 +18,7 @@ defmodule ForksTheEggSampleWeb.PasswordResetController do
   def edit(conn, %{"key" => key}) do
     render(conn, "edit.html", key: key)
   end
+
   def edit(conn, _params) do
     render(conn, ForksTheEggSampleWeb.ErrorView, "404.html")
   end
@@ -26,6 +27,7 @@ defmodule ForksTheEggSampleWeb.PasswordResetController do
     case Phauxth.Confirm.verify(params, Accounts, mode: :pass_reset) do
       {:ok, user} ->
         Accounts.update_password(user, params) |> update_password(conn, params)
+
       {:error, message} ->
         put_flash(conn, :error, message)
         |> render("edit.html", key: params["key"])
@@ -35,11 +37,14 @@ defmodule ForksTheEggSampleWeb.PasswordResetController do
   defp update_password({:ok, user}, conn, _params) do
     Accounts.Message.reset_success(user.email)
     message = "Your password has been reset"
+
     delete_session(conn, :phauxth_session_id)
     |> success(message, session_path(conn, :new))
   end
+
   defp update_password({:error, %Ecto.Changeset{} = changeset}, conn, params) do
     message = with p <- changeset.errors[:password], do: elem(p, 0)
+
     put_flash(conn, :error, message || "Invalid input")
     |> render("edit.html", key: params["key"])
   end

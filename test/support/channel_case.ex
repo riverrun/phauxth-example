@@ -25,13 +25,13 @@ defmodule ForksTheEggSampleWeb.ChannelCase do
     end
   end
 
-
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(ForksTheEggSample.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(ForksTheEggSample.Repo, {:shared, self()})
     end
+
     :ok
   end
-
 end

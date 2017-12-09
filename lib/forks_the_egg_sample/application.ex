@@ -11,7 +11,7 @@ defmodule ForksTheEggSample.Application do
       # Start the Ecto repository
       supervisor(ForksTheEggSample.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(ForksTheEggSampleWeb.Endpoint, []),
+      supervisor(ForksTheEggSampleWeb.Endpoint, [])
       # Start your own worker by calling: ForksTheEggSample.Worker.start_link(arg1, arg2, arg3)
       # worker(ForksTheEggSample.Worker, [arg1, arg2, arg3]),
     ]

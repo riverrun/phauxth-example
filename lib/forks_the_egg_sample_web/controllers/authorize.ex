@@ -1,5 +1,4 @@
 defmodule ForksTheEggSampleWeb.Authorize do
-
   import Plug.Conn
   import Phoenix.Controller
   import ForksTheEggSampleWeb.Router.Helpers
@@ -11,8 +10,11 @@ defmodule ForksTheEggSampleWeb.Authorize do
   def auth_action(%Plug.Conn{assigns: %{current_user: nil}} = conn, _) do
     need_login(conn)
   end
-  def auth_action(%Plug.Conn{assigns: %{current_user: current_user},
-      params: params} = conn, module) do
+
+  def auth_action(
+        %Plug.Conn{assigns: %{current_user: current_user}, params: params} = conn,
+        module
+      ) do
     apply(module, action_name(conn), [conn, params, current_user])
   end
 
@@ -21,11 +23,13 @@ defmodule ForksTheEggSampleWeb.Authorize do
   def user_check(%Plug.Conn{assigns: %{current_user: nil}} = conn, _opts) do
     need_login(conn)
   end
+
   def user_check(conn, _opts), do: conn
 
   # Plug to only allow unauthenticated users to access the resource.
   # See the session controller for an example.
   def guest_check(%Plug.Conn{assigns: %{current_user: nil}} = conn, _opts), do: conn
+
   def guest_check(%Plug.Conn{assigns: %{current_user: _current_user}} = conn, _opts) do
     error(conn, "You need to log out to view this page", page_path(conn, :index))
   end
@@ -35,9 +39,12 @@ defmodule ForksTheEggSampleWeb.Authorize do
   def id_check(%Plug.Conn{assigns: %{current_user: nil}} = conn, _opts) do
     need_login(conn)
   end
-  def id_check(%Plug.Conn{params: %{"id" => id},
-      assigns: %{current_user: current_user}} = conn, _opts) do
-    id == to_string(current_user.id) and conn ||
+
+  def id_check(
+        %Plug.Conn{params: %{"id" => id}, assigns: %{current_user: current_user}} = conn,
+        _opts
+      ) do
+    (id == to_string(current_user.id) and conn) ||
       error(conn, "You are not authorized to view this page", user_path(conn, :index))
   end
 
@@ -56,6 +63,7 @@ defmodule ForksTheEggSampleWeb.Authorize do
 
   def login_success(conn, path) do
     path = get_session(conn, :request_path) || path
+
     delete_session(conn, :request_path)
     |> success("You have been logged in", get_session(conn, :request_path) || path)
   end

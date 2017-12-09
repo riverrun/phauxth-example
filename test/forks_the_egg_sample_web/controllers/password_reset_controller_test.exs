@@ -35,7 +35,7 @@ defmodule ForksTheEggSampleWeb.PasswordResetControllerTest do
     reset_conn = put(conn, password_reset_path(conn, :update), password_reset: valid_attrs)
     assert reset_conn.private.phoenix_flash["info"] =~ "password has been reset"
     assert redirected_to(reset_conn) == session_path(conn, :new)
-    conn = post conn, session_path(conn, :create), session: @update_attrs
+    conn = post(conn, session_path(conn, :create), session: @update_attrs)
     assert redirected_to(conn) == user_path(conn, :index)
   end
 

@@ -40,7 +40,7 @@ defmodule ForksTheEggSample.Accounts.Message do
     prep_mail(address)
     |> subject("Confirm your account")
     |> text_body("Confirm your email here http://www.example.com/confirm?key=#{key}")
-    |> Mailer.deliver_now
+    |> Mailer.deliver_now()
   end
 
   @doc """
@@ -49,14 +49,17 @@ defmodule ForksTheEggSample.Accounts.Message do
   def reset_request(address, nil) do
     prep_mail(address)
     |> subject("Reset your password")
-    |> text_body("You requested a password reset, but no user is associated with the email you provided.")
-    |> Mailer.deliver_now
+    |> text_body(
+         "You requested a password reset, but no user is associated with the email you provided."
+       )
+    |> Mailer.deliver_now()
   end
+
   def reset_request(address, key) do
     prep_mail(address)
     |> subject("Reset your password")
     |> text_body("Reset your password at http://www.example.com/password_resets/edit?key=#{key}")
-    |> Mailer.deliver_now
+    |> Mailer.deliver_now()
   end
 
   @doc """
@@ -66,7 +69,7 @@ defmodule ForksTheEggSample.Accounts.Message do
     prep_mail(address)
     |> subject("Confirmed account")
     |> text_body("Your account has been confirmed.")
-    |> Mailer.deliver_now
+    |> Mailer.deliver_now()
   end
 
   @doc """
@@ -76,7 +79,7 @@ defmodule ForksTheEggSample.Accounts.Message do
     prep_mail(address)
     |> subject("Password reset")
     |> text_body("Your password has been reset.")
-    |> Mailer.deliver_now
+    |> Mailer.deliver_now()
   end
 
   defp prep_mail(address) do

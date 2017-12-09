@@ -28,8 +28,9 @@ defmodule ForksTheEggSampleWeb do
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/forks_the_egg_sample_web/templates",
-                        namespace: ForksTheEggSampleWeb
+      use Phoenix.View,
+        root: "lib/forks_the_egg_sample_web/templates",
+        namespace: ForksTheEggSampleWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
