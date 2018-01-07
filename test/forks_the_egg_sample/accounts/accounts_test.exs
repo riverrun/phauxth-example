@@ -6,7 +6,7 @@ defmodule ForksTheEggSample.AccountsTest do
 
   @create_attrs %{email: "fred@example.com", password: "reallyHard2gue$$"}
   @update_attrs %{email: "frederick@example.com"}
-  @invalid_attrs %{email: nil}
+  @invalid_attrs %{email: "", password: ""}
 
   def fixture(:user, attrs \\ @create_attrs) do
     {:ok, user} = Accounts.create_user(attrs)

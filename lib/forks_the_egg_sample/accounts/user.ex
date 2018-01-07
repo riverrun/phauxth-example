@@ -24,7 +24,7 @@ defmodule ForksTheEggSample.Accounts.User do
   def create_changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:email, :password])
-    |> validate_required([:email])
+    |> validate_required([:email, :password])
     |> unique_email
     |> validate_password(:password)
     |> put_pass_hash
