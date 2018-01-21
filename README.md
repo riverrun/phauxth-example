@@ -23,7 +23,7 @@ mix deps.get
 3. Build the javascript assets:
 
 ```
-cd assets && npm install && node node_modules/brunch/bin/brunch build
+(cd assets && npm install && node node_modules/brunch/bin/brunch build)
 ```
 
 4. Set up the database:
@@ -45,27 +45,19 @@ cd forks_the_egg_sample
 mix phauxth.new --confirm --remember --no-backups
 ```
 
-2. Then add the following lines to the deps section in the mix.exs file:
-
-```elixir
-{:phauxth, "~> 1.2"},
-{:bcrypt_elixir, "~> 1.0"},
-{:bamboo, "~> 0.8"},
-```
-
-3. Get dependencies:
+2. Get dependencies:
 
 ```elixir
 mix deps.get
 ```
 
-4. Set up the database:
+3. Set up the database:
 
 ```elixir
 mix ecto.setup
 ```
 
-5. Set up the bamboo email library (see below)
+4. Set up the bamboo email library (see below)
 
 ## Setting up bamboo email library
 
