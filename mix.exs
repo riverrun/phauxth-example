@@ -33,16 +33,16 @@ defmodule ForksTheEggSample.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.0"},
+      {:phoenix, "~> 1.3.4"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phauxth, "~> 1.2"},
-      {:bcrypt_elixir, "~> 1.0"},
-      {:bamboo, "~> 0.8"},
-      {:gettext, "~> 0.11"},
+      {:bcrypt_elixir, "~> 1.1"},
+      {:bamboo, "~> 1.1"},
+      {:gettext, "~> 0.16"},
       {:cowboy, "~> 1.0"}
     ]
   end
