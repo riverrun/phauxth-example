@@ -5,7 +5,7 @@ defmodule ForksTheEggSample.Mixfile do
     [
       app: :forks_the_egg_sample,
       version: "0.0.1",
-      elixir: "~> 1.4",
+      elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -34,7 +34,7 @@ defmodule ForksTheEggSample.Mixfile do
   defp deps do
     [
       {:phoenix, "~> 1.3.4"},
-      {:phoenix_pubsub, "~> 1.0"},
+      {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.10"},
@@ -43,6 +43,7 @@ defmodule ForksTheEggSample.Mixfile do
       {:bcrypt_elixir, "~> 1.1"},
       {:bamboo, "~> 1.1"},
       {:gettext, "~> 0.16"},
+      {:jason, "~> 1.0"},
       {:cowboy, "~> 1.0"}
     ]
   end

@@ -50,8 +50,8 @@ defmodule ForksTheEggSample.Accounts.Message do
     prep_mail(address)
     |> subject("Reset your password")
     |> text_body(
-         "You requested a password reset, but no user is associated with the email you provided."
-       )
+      "You requested a password reset, but no user is associated with the email you provided."
+    )
     |> Mailer.deliver_now()
   end
 

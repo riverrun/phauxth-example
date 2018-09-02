@@ -20,9 +20,10 @@ defmodule ForksTheEggSampleWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: ForksTheEggSampleWeb
+
       import Plug.Conn
-      import ForksTheEggSampleWeb.Router.Helpers
       import ForksTheEggSampleWeb.Gettext
+      import ForksTheEggSampleWeb.Router.Helpers
     end
   end
 
@@ -33,14 +34,14 @@ defmodule ForksTheEggSampleWeb do
         namespace: ForksTheEggSampleWeb
 
       # Import convenience functions from controllers
-      import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
+      import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import ForksTheEggSampleWeb.Router.Helpers
       import ForksTheEggSampleWeb.ErrorHelpers
       import ForksTheEggSampleWeb.Gettext
+      import ForksTheEggSampleWeb.Router.Helpers
     end
   end
 

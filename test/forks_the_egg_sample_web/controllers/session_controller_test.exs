@@ -18,7 +18,10 @@ defmodule ForksTheEggSampleWeb.SessionControllerTest do
   end
 
   describe "login form" do
-    test "rendering login form fails for user that is already logged in", %{conn: conn, user: user} do
+    test "rendering login form fails for user that is already logged in", %{
+      conn: conn,
+      user: user
+    } do
       conn = conn |> add_phauxth_session(user) |> send_resp(:ok, "/")
       conn = get(conn, session_path(conn, :new))
       assert redirected_to(conn) == page_path(conn, :index)
