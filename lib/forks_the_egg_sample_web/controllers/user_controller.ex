@@ -25,7 +25,7 @@ defmodule ForksTheEggSampleWeb.UserController do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         Log.info(%Log{user: user.id, message: "user created"})
-        Accounts.Message.confirm_request(email, key)
+        Accounts.Email.confirm_request(email, key)
         success(conn, "User created successfully", session_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->

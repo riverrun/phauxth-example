@@ -1,13 +1,13 @@
-defmodule ForksTheEggSample.Accounts.Message do
+defmodule ForksTheEggSample.Accounts.Email do
   @moduledoc """
-  A module for sending messages, by email or phone, to the user.
+  A module for sending emails to the user.
 
   This module provides functions to be used with the Phauxth authentication
   library when confirming users or handling password resets. It uses
   Bamboo, with the Mandrill adapter, to email users. For tests, it uses
   a test adapter, which is configured in the config/test.exs file.
 
-  If you want to use a different email adapter, or another email / phone
+  If you want to use a different email adapter, or another email
   library, read the instructions below.
 
   ## Bamboo with a different adapter
@@ -19,11 +19,11 @@ defmodule ForksTheEggSample.Accounts.Message do
 
   See [Bamboo](https://github.com/thoughtbot/bamboo) for more information.
 
-  ## Other email / phone library
+  ## Other email library
 
   If you do not want to use Bamboo, follow the instructions below:
 
-  1. Edit this file, using the email / phone library of your choice
+  1. Edit this file, using the email library of your choice
   2. Remove the lib/forks_the_egg_sample/mailer.ex file
   3. Remove the Bamboo entries in the config/config.exs and config/test.exs files
   4. Remove bamboo from the deps section in the mix.exs file

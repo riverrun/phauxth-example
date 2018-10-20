@@ -10,7 +10,7 @@ defmodule ForksTheEggSampleWeb.PasswordResetController do
 
   def create(conn, %{"password_reset" => %{"email" => email}}) do
     key = Accounts.create_password_reset(ForksTheEggSampleWeb.Endpoint, %{"email" => email})
-    Accounts.Message.reset_request(email, key)
+    Accounts.Email.reset_request(email, key)
     message = "Check your inbox for instructions on how to reset your password"
     success(conn, message, page_path(conn, :index))
   end
@@ -35,7 +35,7 @@ defmodule ForksTheEggSampleWeb.PasswordResetController do
   end
 
   defp update_password({:ok, user}, conn, _params) do
-    Accounts.Message.reset_success(user.email)
+    Accounts.Email.reset_success(user.email)
     message = "Your password has been reset"
 
     delete_session(conn, :phauxth_session_id)

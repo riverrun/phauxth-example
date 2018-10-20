@@ -9,7 +9,7 @@ defmodule ForksTheEggSampleWeb.ConfirmController do
       {:ok, user} ->
         Accounts.confirm_user(user)
         message = "Your account has been confirmed"
-        Accounts.Message.confirm_success(user.email)
+        Accounts.Email.confirm_success(user.email)
         success(conn, message, session_path(conn, :new))
 
       {:error, message} ->
