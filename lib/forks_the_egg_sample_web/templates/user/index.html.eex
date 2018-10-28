@@ -1,21 +1,27 @@
-<h2>Listing Users</h2>
+<h1>Listing Users</h1>
 
-<table class="table">
+<table>
   <thead>
     <tr>
       <th>Email</th>
+      <th>Password hash</th>
+
+      <th></th>
     </tr>
   </thead>
   <tbody>
 <%= for user <- @users do %>
     <tr>
       <td><%= user.email %></td>
-      <td class="text-right">
-        <span><%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></span>
+
+      <td>
+        <%= link "Show", to: Routes.user_path(@conn, :show, user) %>
+        <%= link "Edit", to: Routes.user_path(@conn, :edit, user) %>
+        <%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"] %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New User", to: user_path(@conn, :new) %></span>
+<span><%= link "New User", to: Routes.user_path(@conn, :new) %></span>

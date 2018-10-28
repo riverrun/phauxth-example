@@ -1,7 +1,7 @@
 defmodule ForksTheEggSample.Accounts.User do
   use Ecto.Schema
+
   import Ecto.Changeset
-  alias ForksTheEggSample.Accounts.User
 
   schema "users" do
     field(:email, :string)
@@ -9,19 +9,18 @@ defmodule ForksTheEggSample.Accounts.User do
     field(:password_hash, :string)
     field(:confirmed_at, :utc_datetime)
     field(:reset_sent_at, :utc_datetime)
-    field(:sessions, {:map, :integer}, default: %{})
 
     timestamps()
   end
 
-  def changeset(%User{} = user, attrs) do
+  @doc false
+  def changeset(user, attrs) do
     user
     |> cast(attrs, [:email])
     |> validate_required([:email])
-    |> unique_email
   end
 
-  def create_changeset(%User{} = user, attrs) do
+  def create_changeset(%__MODULE__{} = user, attrs) do
     user
     |> cast(attrs, [:email, :password])
     |> validate_required([:email, :password])
@@ -30,8 +29,17 @@ defmodule ForksTheEggSample.Accounts.User do
     |> put_pass_hash
   end
 
+  def confirm_changeset(user) do
+    change(user, %{confirmed_at: DateTime.utc_now()})
+  end
+
+  def password_reset_changeset(user, reset_sent_at) do
+    change(user, %{reset_sent_at: reset_sent_at})
+  end
+
   defp unique_email(changeset) do
-    validate_format(changeset, :email, ~r/@/)
+    changeset
+    |> validate_format(:email, ~r/@/)
     |> validate_length(:email, max: 254)
     |> unique_constraint(:email)
   end
@@ -49,9 +57,9 @@ defmodule ForksTheEggSample.Accounts.User do
     end)
   end
 
-  # If you are using Argon2 or Pbkdf2, change Bcrypt to Argon2 or Pbkdf2
+  # If you are using Bcrypt or Pbkdf2, change Argon2 to Bcrypt or Pbkdf2
   defp put_pass_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
-    change(changeset, Comeonin.Bcrypt.add_hash(password))
+    change(changeset, Comeonin.Argon2.add_hash(password))
   end
 
   defp put_pass_hash(changeset), do: changeset

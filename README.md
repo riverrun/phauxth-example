@@ -1,76 +1,29 @@
-# Phauxth authentication example Phoenix app
+# ForksTheEggSample
 
-An example Phoenix app using the [Phauxth authentication library](https://github.com/riverrun/phauxth).
+An example app using the Phoenix web framework with the Phauxth
+authentication library.
 
-You can clone this repository and use the app as it is, or you can generate
-it using the [Phauxth installer](https://github.com/riverrun/phauxth_installer).
+## Version 2.0.0-beta & 1.2
 
-## Cloning this repo and using the app
+The master branch is an example using version 2.0.0-beta of Phauxth
+and version 1.4.0-rc of Phoenix.
 
-1. Run the following commands:
+The v1.2 branch uses version 1.2 of Phauxth with version 1.3 of Phoenix.
 
-```elixir
-git clone https://github.com/riverrun/phauxth-example.git
-cd phauxth-example
-```
+## Getting started
 
-2. Get dependencies:
+To start your Phoenix server:
 
-```elixir
-mix deps.get
-```
+  * Install dependencies with `mix deps.get`
+  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
+  * Install Node.js dependencies with `cd assets && npm install`
+  * Start Phoenix endpoint with `mix phx.server`
 
-3. Build the javascript assets:
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-```
-(cd assets && npm install && node node_modules/brunch/bin/brunch build)
-```
+## Learn more
 
-4. Set up the database:
-
-```elixir
-mix ecto.setup
-```
-
-5. Set up the bamboo email library (see below)
-
-## Using the Phauxth installer
-
-1. Install the Phauxth installer and run `phauxth.new`:
-
-```elixir
-mix archive.install https://github.com/riverrun/phauxth_installer/raw/master/archives/phauxth_new.ez
-mix phx.new forks_the_egg_sample # or any other suitable app name
-cd forks_the_egg_sample
-mix phauxth.new --confirm --remember --no-backups
-```
-
-2. Get dependencies:
-
-```elixir
-mix deps.get
-```
-
-3. Set up the database:
-
-```elixir
-mix ecto.setup
-```
-
-4. Set up the bamboo email library (see below)
-
-## Setting up bamboo email library
-
-The bamboo email library is configured in the `config/config.exs`, using
-the LocalAdapter, and `config/test.exs`, using the TestAdapter, files.
-
-The LocalAdapter is great for development, but to actually send emails to
-users, you will need to setup a different adapter. For more information
-about the available adapters, see the [bamboo README](https://github.com/thoughtbot/bamboo).
-
-## Useful commands
-
-* To start your Phoenix server, run `mix phx.server` or `iex -S mix phx.server`
-  * you can now visit [`localhost:4000`](http://localhost:4000) from your browser
-* To run tests, run `mix test`
-* To reset the database, run `mix ecto.reset`
+* Phauxth docs: https://hexdocs.pm/phauxth
+* Phauxth source: https://github.com/riverrun/phauxth
+* Phoenix docs: https://hexdocs.pm/phoenix
+* Phoenix source: https://github.com/phoenixframework/phoenix

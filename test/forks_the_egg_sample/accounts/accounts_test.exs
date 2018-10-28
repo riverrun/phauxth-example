@@ -20,7 +20,7 @@ defmodule ForksTheEggSample.AccountsTest do
 
   test "get returns the user with given id" do
     user = fixture(:user)
-    assert Accounts.get(user.id) == user
+    assert Accounts.get_user(user.id) == user
   end
 
   test "create_user/1 with valid data creates a user" do
@@ -42,13 +42,13 @@ defmodule ForksTheEggSample.AccountsTest do
   test "update_user/2 with invalid data returns error changeset" do
     user = fixture(:user)
     assert {:error, %Ecto.Changeset{}} = Accounts.update_user(user, @invalid_attrs)
-    assert user == Accounts.get(user.id)
+    assert user == Accounts.get_user(user.id)
   end
 
   test "delete_user/1 deletes the user" do
     user = fixture(:user)
     assert {:ok, %User{}} = Accounts.delete_user(user)
-    refute Accounts.get(user.id)
+    refute Accounts.get_user(user.id)
   end
 
   test "change_user/1 returns a user changeset" do

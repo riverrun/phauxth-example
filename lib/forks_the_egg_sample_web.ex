@@ -23,7 +23,7 @@ defmodule ForksTheEggSampleWeb do
 
       import Plug.Conn
       import ForksTheEggSampleWeb.Gettext
-      import ForksTheEggSampleWeb.Router.Helpers
+      alias ForksTheEggSampleWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -41,7 +41,7 @@ defmodule ForksTheEggSampleWeb do
 
       import ForksTheEggSampleWeb.ErrorHelpers
       import ForksTheEggSampleWeb.Gettext
-      import ForksTheEggSampleWeb.Router.Helpers
+      alias ForksTheEggSampleWeb.Router.Helpers, as: Routes
     end
   end
 

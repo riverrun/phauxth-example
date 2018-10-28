@@ -1,34 +1,28 @@
 <h2>Login</h2>
 
-<%= form_for @conn, session_path(@conn, :create), [as: :session], fn f -> %>
+<%= form_for @conn, Routes.session_path(@conn, :create), [as: :session], fn f -> %>
   <%= if f.errors != [] do %>
     <div class="alert alert-danger">
       <p>Please check the errors below:</p>
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= label f, :email, class: "control-label" %>
-    <%= text_input f, :email, class: "form-control" %>
-    <%= error_tag f, :email %>
-  </div>
+  <%= label f, :email %>
+  <%= text_input f, :email %>
+  <%= error_tag f, :email %>
 
-  <div class="form-group">
-    <%= label f, :password, class: "control-label" %>
-    <%= password_input f, :password, class: "form-control" %>
-    <%= error_tag f, :password %>
-  </div>
+  <%= label f, :password %>
+  <%= text_input f, :password %>
+  <%= error_tag f, :password %>
 
-  <div class="form-group">
-    <%= checkbox f, :remember_me %>
-    <%= label f, :remember_me, class: "control-label" %>
-    &emsp;&emsp;
-    <%= link "Forgot password", to: password_reset_path(@conn, :new) %>
-  </div>
+  <%= checkbox f, :remember_me %>
+  <%= label f, :remember_me %>
+  &emsp;&emsp;
+  <%= link "Forgot password", to: Routes.password_reset_path(@conn, :new) %>
 
-  <div class="form-group">
-    <%= submit "Login", class: "btn btn-primary" %>
+  <div>
+    <%= submit "Login" %>
   </div>
 <% end %>
 
-<span><%= link "Back", to: page_path(@conn, :index) %></span>
+<span><%= link "Back", to: Routes.page_path(@conn, :index) %></span>

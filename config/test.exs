@@ -11,7 +11,6 @@ config :logger, level: :warn
 
 # Configure your database
 config :forks_the_egg_sample, ForksTheEggSample.Repo,
-  adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
   database: "forks_the_egg_sample_test",
@@ -19,11 +18,9 @@ config :forks_the_egg_sample, ForksTheEggSample.Repo,
   pool: Ecto.Adapters.SQL.Sandbox
 
 # Comeonin password hashing test config
-# config :argon2_elixir,
-# t_cost: 2,
-# m_cost: 8
-config :bcrypt_elixir, log_rounds: 4
+config :argon2_elixir, t_cost: 2, m_cost: 8
+# config :bcrypt_elixir, log_rounds: 4
 # config :pbkdf2_elixir, rounds: 1
 
 # Configures mailer for testing
-config :forks_the_egg_sample, ForksTheEggSample.Mailer, adapter: Bamboo.TestAdapter
+config :forks_the_egg_sample, ForksTheEggSampleWeb.Mailer, adapter: Bamboo.TestAdapter

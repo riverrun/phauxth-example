@@ -1,4 +1,4 @@
-defmodule ForksTheEggSample.Accounts.Email do
+defmodule ForksTheEggSampleWeb.Email do
   @moduledoc """
   A module for sending emails to the user.
 
@@ -31,7 +31,8 @@ defmodule ForksTheEggSample.Accounts.Email do
   """
 
   import Bamboo.Email
-  alias ForksTheEggSample.Mailer
+
+  alias ForksTheEggSampleWeb.Mailer
 
   @doc """
   An email with a confirmation link in it.

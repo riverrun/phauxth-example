@@ -1,9 +1,9 @@
-defmodule ForksTheEggSample.Accounts.EmailTest do
+defmodule ForksTheEggSampleWeb.EmailTest do
   use ExUnit.Case
   use Bamboo.Test
 
   import ForksTheEggSampleWeb.AuthCase
-  alias ForksTheEggSample.Accounts.Email
+  alias ForksTheEggSampleWeb.Email
 
   setup do
     email = "deirdre@example.com"

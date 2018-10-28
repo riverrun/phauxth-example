@@ -3,26 +3,29 @@
 #
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
-use Mix.Config
 
 # General application configuration
+use Mix.Config
+
 config :forks_the_egg_sample,
   ecto_repos: [ForksTheEggSample.Repo]
 
 # Configures the endpoint
 config :forks_the_egg_sample, ForksTheEggSampleWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "FI2QwafXZvEtIRDHk8zaOq90HVy0LAuQLQLkM6FgE5Oru005k+SXk2g+8iTVEM3p",
+  secret_key_base: "VGy/YPnKoEHa7NXTHxKGrn4rIaejhpcvOws9CFMrQ6dAWpX8CfnFmOswybqcESQJ",
   render_errors: [view: ForksTheEggSampleWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: ForksTheEggSample.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Phauxth authentication
 config :phauxth,
-  token_salt: "yX7/DDXv",
-  endpoint: ForksTheEggSampleWeb.Endpoint
+  user_context: ForksTheEggSample.Accounts,
+  token_module: ForksTheEggSampleWeb.Auth.Token
+
+config :argon2_elixir, t_cost: 1, m_cost: 8
 
 # Configures mailer
-config :forks_the_egg_sample, ForksTheEggSample.Mailer, adapter: Bamboo.LocalAdapter
+config :forks_the_egg_sample, ForksTheEggSampleWeb.Mailer, adapter: Bamboo.LocalAdapter
 
 # Configures Elixir's Logger
 config :logger, :console,

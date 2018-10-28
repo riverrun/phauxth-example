@@ -1,11 +1,11 @@
-defmodule ForksTheEggSample.Mixfile do
+defmodule ForksTheEggSample.MixProject do
   use Mix.Project
 
   def project do
     [
       app: :forks_the_egg_sample,
-      version: "0.0.1",
-      elixir: "~> 1.5",
+      version: "2.0.0",
+      elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -33,16 +33,16 @@ defmodule ForksTheEggSample.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.4"},
+      {:phoenix, "~> 1.4.0-rc"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.10"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:phauxth, "~> 1.2"},
-      {:bcrypt_elixir, "~> 1.1"},
+      {:phoenix_html, "~> 2.11"},
+      {:phoenix_live_reload, "~> 1.2-rc", only: :dev},
+      {:phauxth, "~> 2.0.0-beta"},
+      {:argon2_elixir, "~> 1.3"},
       {:bamboo, "~> 1.1"},
-      {:gettext, "~> 0.16"},
+      {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:cowboy, "~> 1.0"}
     ]
