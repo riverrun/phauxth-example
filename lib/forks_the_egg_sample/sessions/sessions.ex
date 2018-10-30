@@ -13,21 +13,23 @@ defmodule ForksTheEggSample.Sessions do
   Returns a list of sessions for the user.
   """
   def list_sessions(%User{} = user) do
-    Repo.all(from(s in Session, where: s.user_id == ^user.id))
+    now = DateTime.utc_now()
+    Repo.all(from(s in Session, where: s.user_id == ^user.id and s.expires_at > ^now))
   end
 
   @doc """
   Gets a single user.
   """
-  def get_session(id), do: Repo.get(Session, id)
+  def get_session(id) do
+    now = DateTime.utc_now()
+    Repo.get(from(s in Session, where: s.expires_at > ^now), id)
+  end
 
   @doc """
   Creates a session.
   """
   def create_session(attrs \\ %{}) do
-    %Session{}
-    |> Session.changeset(attrs)
-    |> Repo.insert()
+    %Session{} |> Session.changeset(attrs) |> Repo.insert()
   end
 
   @doc """
@@ -38,7 +40,7 @@ defmodule ForksTheEggSample.Sessions do
   end
 
   @doc """
-  Deletes a session.
+  Deletes all a user's sessions.
   """
   def delete_user_sessions(%User{} = user) do
     Repo.delete_all(from(s in Session, where: s.user_id == ^user.id))
