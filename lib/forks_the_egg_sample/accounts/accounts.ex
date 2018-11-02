@@ -15,6 +15,11 @@ defmodule ForksTheEggSample.Accounts do
   end
 
   @doc """
+  Gets a single user.
+  """
+  def get_user(id), do: Repo.get(User, id)
+
+  @doc """
   Gets a user based on the params.
 
   This is used by Phauxth to get user information.
@@ -27,13 +32,6 @@ defmodule ForksTheEggSample.Accounts do
   def get_by(%{"email" => email}) do
     Repo.get_by(User, email: email)
   end
-
-  @doc """
-  Gets a single user.
-
-  Raises `Ecto.NoResultsError` if the User does not exist.
-  """
-  def get_user(id), do: Repo.get(User, id)
 
   @doc """
   Creates a user.

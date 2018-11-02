@@ -47,7 +47,7 @@ defmodule ForksTheEggSampleWeb.PasswordResetControllerTest do
     end
 
     test "sessions are deleted when user updates password", %{conn: conn, user: user} do
-      add_phauxth_session(conn, user)
+      add_session(conn, user)
       valid_attrs = Map.put(@update_attrs, :key, gen_key("gladys@example.com"))
 
       reset_conn =

@@ -24,9 +24,12 @@ defmodule ForksTheEggSampleWeb.AuthCase do
     |> Repo.update!()
   end
 
-  def add_phauxth_session(conn, user) do
+  def add_session(conn, user) do
     {:ok, %{id: session_id}} = Sessions.create_session(%{user_id: user.id})
-    Phauxth.Authenticate.add_session(conn, session_id)
+
+    conn
+    |> put_session(:phauxth_session_id, session_id)
+    |> configure_session(renew: true)
   end
 
   def gen_key(email), do: Token.sign(%{"email" => email})

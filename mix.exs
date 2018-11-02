@@ -39,7 +39,7 @@ defmodule ForksTheEggSample.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2-rc", only: :dev},
-      {:phauxth, "~> 2.0.0-beta"},
+      {:phauxth, "~> 2.0.0-rc"},
       {:argon2_elixir, "~> 1.3"},
       {:bamboo, "~> 1.1"},
       {:gettext, "~> 0.11"},

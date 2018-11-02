@@ -5,7 +5,6 @@ defmodule ForksTheEggSampleWeb.SessionController do
 
   alias ForksTheEggSample.Sessions
   alias ForksTheEggSampleWeb.Auth.Login
-  alias Phauxth.Authenticate
   alias Phauxth.Remember
 
   # the following plugs are defined in the controllers/authorize.ex file
@@ -23,7 +22,8 @@ defmodule ForksTheEggSampleWeb.SessionController do
 
         conn
         |> delete_session(:request_path)
-        |> Authenticate.add_session(session_id)
+        |> put_session(:phauxth_session_id, session_id)
+        |> configure_session(renew: true)
         |> add_remember_me(user.id, params)
         |> put_flash(:info, "User successfully logged in.")
         |> redirect(to: get_session(conn, :request_path) || Routes.user_path(conn, :index))
@@ -38,12 +38,12 @@ defmodule ForksTheEggSampleWeb.SessionController do
   def delete(%Plug.Conn{assigns: %{current_user: _user}} = conn, _) do
     {:ok, _} =
       conn
-      |> get_session(:session_id)
+      |> get_session(:phauxth_session_id)
       |> Sessions.get_session()
       |> Sessions.delete_session()
 
     conn
-    |> delete_session(:session_id)
+    |> delete_session(:phauxth_session_id)
     |> Remember.delete_rem_cookie()
     |> put_flash(:info, "User successfully logged out.")
     |> redirect(to: Routes.page_path(conn, :index))

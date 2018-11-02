@@ -21,7 +21,7 @@ defmodule ForksTheEggSampleWeb.SessionControllerTest do
       conn: conn,
       user: user
     } do
-      conn = conn |> add_phauxth_session(user) |> send_resp(:ok, "/")
+      conn = conn |> add_session(user) |> send_resp(:ok, "/")
       conn = get(conn, Routes.session_path(conn, :new))
       assert redirected_to(conn) == Routes.page_path(conn, :index)
     end
@@ -39,7 +39,7 @@ defmodule ForksTheEggSampleWeb.SessionControllerTest do
     end
 
     test "login fails for user that is already logged in", %{conn: conn, user: user} do
-      conn = conn |> add_phauxth_session(user) |> send_resp(:ok, "/")
+      conn = conn |> add_session(user) |> send_resp(:ok, "/")
       conn = post(conn, Routes.session_path(conn, :create), session: @create_attrs)
       assert redirected_to(conn) == Routes.page_path(conn, :index)
     end
@@ -66,7 +66,7 @@ defmodule ForksTheEggSampleWeb.SessionControllerTest do
 
   describe "delete session" do
     test "logout succeeds and session is deleted", %{conn: conn, user: user} do
-      conn = conn |> add_phauxth_session(user) |> send_resp(:ok, "/")
+      conn = conn |> add_session(user) |> send_resp(:ok, "/")
       conn = delete(conn, Routes.session_path(conn, :delete, user))
       assert redirected_to(conn) == Routes.page_path(conn, :index)
       conn = get(conn, Routes.user_path(conn, :index))

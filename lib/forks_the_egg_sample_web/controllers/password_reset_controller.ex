@@ -45,7 +45,7 @@ defmodule ForksTheEggSampleWeb.PasswordResetController do
     Email.reset_success(user.email)
 
     conn
-    |> delete_session(:session_id)
+    |> delete_session(:phauxth_session_id)
     |> put_flash(:info, "Your password has been reset")
     |> redirect(to: Routes.session_path(conn, :new))
   end

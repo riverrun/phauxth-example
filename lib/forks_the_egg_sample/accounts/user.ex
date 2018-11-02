@@ -13,8 +13,7 @@ defmodule ForksTheEggSample.Accounts.User do
     timestamps()
   end
 
-  @doc false
-  def changeset(user, attrs) do
+  def changeset(%__MODULE__{} = user, attrs) do
     user
     |> cast(attrs, [:email])
     |> validate_required([:email])

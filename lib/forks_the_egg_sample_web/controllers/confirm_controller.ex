@@ -18,7 +18,7 @@ defmodule ForksTheEggSampleWeb.ConfirmController do
       {:error, message} ->
         conn
         |> put_flash(:error, message)
-        |> redirect(to: Routes.page_path(conn, :index))
+        |> redirect(to: Routes.session_path(conn, :new))
     end
   end
 end
