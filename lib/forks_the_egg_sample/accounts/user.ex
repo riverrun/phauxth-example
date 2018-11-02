@@ -29,7 +29,7 @@ defmodule ForksTheEggSample.Accounts.User do
   end
 
   def confirm_changeset(user) do
-    change(user, %{confirmed_at: DateTime.utc_now()})
+    change(user, %{confirmed_at: DateTime.utc_now() |> DateTime.truncate(:second)})
   end
 
   def password_reset_changeset(user, reset_sent_at) do

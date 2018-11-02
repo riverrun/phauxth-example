@@ -77,7 +77,9 @@ defmodule ForksTheEggSample.Accounts do
   """
   def create_password_reset(attrs) do
     with %User{} = user <- get_by(attrs) do
-      user |> User.password_reset_changeset(DateTime.utc_now()) |> Repo.update()
+      user
+      |> User.password_reset_changeset(DateTime.utc_now() |> DateTime.truncate(:second))
+      |> Repo.update()
     end
   end
 
