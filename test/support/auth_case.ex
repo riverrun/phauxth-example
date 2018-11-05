@@ -11,14 +11,18 @@ defmodule ForksTheEggSampleWeb.AuthCase do
     user
   end
 
+  def gen_key(email), do: Token.sign(%{"email" => email})
+
   def add_user_confirmed(email) do
-    add_user(email)
+    email
+    |> add_user()
     |> change(%{confirmed_at: now()})
     |> Repo.update!()
   end
 
   def add_reset_user(email) do
-    add_user(email)
+    email
+    |> add_user()
     |> change(%{confirmed_at: now()})
     |> change(%{reset_sent_at: now()})
     |> Repo.update!()
@@ -31,8 +35,6 @@ defmodule ForksTheEggSampleWeb.AuthCase do
     |> put_session(:phauxth_session_id, session_id)
     |> configure_session(renew: true)
   end
-
-  def gen_key(email), do: Token.sign(%{"email" => email})
 
   defp now do
     DateTime.utc_now() |> DateTime.truncate(:second)

@@ -9,7 +9,7 @@
   <%= text_input f, :email %>
   <%= error_tag f, :email %>
 
-  <%= if @action == :create do %>
+  <%= if @action == "/users" do %>
     <%= label f, :password %>
     <%= password_input f, :password %>
     <%= error_tag f, :password %>

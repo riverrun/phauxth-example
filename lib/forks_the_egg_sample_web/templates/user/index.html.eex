@@ -4,7 +4,6 @@
   <thead>
     <tr>
       <th>Email</th>
-      <th>Password hash</th>
 
       <th></th>
     </tr>

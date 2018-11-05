@@ -22,7 +22,7 @@ config :phauxth,
   user_context: ForksTheEggSample.Accounts,
   token_module: ForksTheEggSampleWeb.Auth.Token
 
-config :argon2_elixir, t_cost: 1, m_cost: 8
+config :argon2_elixir, t_cost: 2, m_cost: 8
 
 # Configures mailer
 config :forks_the_egg_sample, ForksTheEggSampleWeb.Mailer, adapter: Bamboo.LocalAdapter

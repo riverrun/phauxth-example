@@ -3,9 +3,9 @@
 An example app using the Phoenix web framework with the Phauxth
 authentication library.
 
-## Version 2.0.0-beta & 1.2
+## Version 2.0.0-rc & 1.2
 
-The master branch is an example using version 2.0.0-beta of Phauxth
+The master branch is an example using version 2.0.0-rc of Phauxth
 and version 1.4.0-rc of Phoenix.
 
 The v1.2 branch uses version 1.2 of Phauxth with version 1.3 of Phoenix.
