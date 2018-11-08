@@ -33,13 +33,13 @@ defmodule ForksTheEggSample.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.0-rc"},
+      {:phoenix, "~> 1.4.0"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
-      {:phoenix_live_reload, "~> 1.2-rc", only: :dev},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phauxth, "~> 2.0.0-rc"},
       {:argon2_elixir, "~> 1.3"},
       {:bamboo, "~> 1.1"},
