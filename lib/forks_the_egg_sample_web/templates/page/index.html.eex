@@ -1,8 +1,7 @@
 <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phauxth" %></h1>
+  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
+  <h2><%= gettext "and welcome to Phauxth as well" %></h2>
   <p>A secure and extensible authentication library for Plug-based applications</p>
-  <br/>
-  <h4><%= gettext "oh yes, and welcome to Phoenix as well 😊" %></h4>
 </section>
 
 <section class="row">

@@ -10,9 +10,10 @@ defmodule ForksTheEggSampleWeb.PasswordResetController do
   end
 
   def create(conn, %{"password_reset" => %{"email" => email}}) do
-    Accounts.create_password_reset(%{"email" => email})
-    key = Token.sign(%{"email" => email})
-    Email.reset_request(email, key)
+    if Accounts.create_password_reset(%{"email" => email}) do
+      key = Token.sign(%{"email" => email})
+      Email.reset_request(email, key)
+    end
 
     conn
     |> put_flash(:info, "Check your inbox for instructions on how to reset your password")
