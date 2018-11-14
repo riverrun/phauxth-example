@@ -13,8 +13,8 @@ defmodule ForksTheEggSample.Sessions do
   Returns a list of sessions for the user.
   """
   def list_sessions(%User{} = user) do
-    now = DateTime.utc_now()
-    Repo.all(from(s in Session, where: s.user_id == ^user.id and s.expires_at > ^now))
+    sessions = Repo.preload(user, :sessions).sessions
+    Enum.filter(sessions, &(&1.expires_at > DateTime.utc_now()))
   end
 
   @doc """

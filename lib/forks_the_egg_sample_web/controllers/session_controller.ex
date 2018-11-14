@@ -7,9 +7,8 @@ defmodule ForksTheEggSampleWeb.SessionController do
   alias ForksTheEggSampleWeb.Auth.Login
   alias Phauxth.Remember
 
-  # the following plugs are defined in the controllers/authorize.ex file
+  # the following plug is defined in the controllers/authorize.ex file
   plug :guest_check when action in [:new, :create]
-  plug :id_check when action in [:delete]
 
   def new(conn, _) do
     render(conn, "new.html")
@@ -18,13 +17,8 @@ defmodule ForksTheEggSampleWeb.SessionController do
   def create(conn, %{"session" => params}) do
     case Login.verify(params) do
       {:ok, user} ->
-        {:ok, %{id: session_id}} = Sessions.create_session(%{user_id: user.id})
-
         conn
-        |> delete_session(:request_path)
-        |> put_session(:phauxth_session_id, session_id)
-        |> configure_session(renew: true)
-        |> add_remember_me(user.id, params)
+        |> add_session(user, params)
         |> put_flash(:info, "User successfully logged in.")
         |> redirect(to: get_session(conn, :request_path) || Routes.user_path(conn, :index))
 
@@ -35,18 +29,30 @@ defmodule ForksTheEggSampleWeb.SessionController do
     end
   end
 
-  def delete(%Plug.Conn{assigns: %{current_user: _user}} = conn, _) do
-    {:ok, _} =
-      conn
-      |> get_session(:phauxth_session_id)
-      |> Sessions.get_session()
-      |> Sessions.delete_session()
+  def delete(%Plug.Conn{assigns: %{current_user: %{id: user_id}}} = conn, %{"id" => session_id}) do
+    case session_id |> Sessions.get_session() |> Sessions.delete_session() do
+      {:ok, %{user_id: ^user_id}} ->
+        conn
+        |> delete_session(:phauxth_session_id)
+        |> Remember.delete_rem_cookie()
+        |> put_flash(:info, "User successfully logged out.")
+        |> redirect(to: Routes.page_path(conn, :index))
+
+      _ ->
+        conn
+        |> put_flash(:error, "Unauthorized")
+        |> redirect(to: Routes.user_path(conn, :index))
+    end
+  end
+
+  defp add_session(conn, user, params) do
+    {:ok, %{id: session_id}} = Sessions.create_session(%{user_id: user.id})
 
     conn
-    |> delete_session(:phauxth_session_id)
-    |> Remember.delete_rem_cookie()
-    |> put_flash(:info, "User successfully logged out.")
-    |> redirect(to: Routes.page_path(conn, :index))
+    |> delete_session(:request_path)
+    |> put_session(:phauxth_session_id, session_id)
+    |> configure_session(renew: true)
+    |> add_remember_me(user.id, params)
   end
 
   # This function adds a remember_me cookie to the conn.

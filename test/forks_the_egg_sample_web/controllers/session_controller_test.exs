@@ -67,7 +67,8 @@ defmodule ForksTheEggSampleWeb.SessionControllerTest do
   describe "delete session" do
     test "logout succeeds and session is deleted", %{conn: conn, user: user} do
       conn = conn |> add_session(user) |> send_resp(:ok, "/")
-      conn = delete(conn, Routes.session_path(conn, :delete, user))
+      session_id = get_session(conn, :phauxth_session_id)
+      conn = delete(conn, Routes.session_path(conn, :delete, session_id))
       assert redirected_to(conn) == Routes.page_path(conn, :index)
       conn = get(conn, Routes.user_path(conn, :index))
       assert redirected_to(conn) == Routes.session_path(conn, :new)

@@ -9,7 +9,8 @@ defmodule ForksTheEggSampleWeb.Auth.Login do
   alias Comeonin.Argon2
   alias ForksTheEggSample.Accounts
 
-  def authenticate(%{"password" => password} = params, opts) do
+  @impl true
+  def authenticate(%{"password" => password} = params, _, opts) do
     case Accounts.get_by(params) do
       nil -> {:error, "no user found"}
       %{confirmed_at: nil} -> {:error, "account unconfirmed"}
