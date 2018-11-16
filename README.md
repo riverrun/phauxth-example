@@ -1,4 +1,4 @@
-# ForksTheEggSample
+# ForksTheEggSample (Phauxth example)
 
 An example app using the Phoenix web framework with the Phauxth
 authentication library.

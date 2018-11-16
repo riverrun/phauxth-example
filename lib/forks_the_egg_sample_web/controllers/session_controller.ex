@@ -3,9 +3,9 @@ defmodule ForksTheEggSampleWeb.SessionController do
 
   import ForksTheEggSampleWeb.Authorize
 
+  alias Phauxth.Remember
   alias ForksTheEggSample.Sessions
   alias ForksTheEggSampleWeb.Auth.Login
-  alias Phauxth.Remember
 
   # the following plug is defined in the controllers/authorize.ex file
   plug :guest_check when action in [:new, :create]

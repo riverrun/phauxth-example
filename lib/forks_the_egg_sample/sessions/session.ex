@@ -15,8 +15,8 @@ defmodule ForksTheEggSample.Sessions.Session do
   end
 
   @doc false
-  def changeset(user, attrs) do
-    user
+  def changeset(session, attrs) do
+    session
     |> set_expires_at(attrs)
     |> cast(attrs, [:user_id])
     |> validate_required([:user_id])
