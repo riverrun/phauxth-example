@@ -21,12 +21,11 @@ defmodule ForksTheEggSampleWeb.UserController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"user" => %{"email" => email} = user_params}) do
-    key = Token.sign(%{"email" => email})
-
+  def create(conn, %{"user" => user_params}) do
     case Accounts.create_user(user_params) do
-      {:ok, user} ->
+      {:ok, %User{email: email} = user} ->
         Log.info(%Log{user: user.id, message: "user created"})
+        key = Token.sign(%{"email" => email})
         Email.confirm_request(email, key)
 
         conn
