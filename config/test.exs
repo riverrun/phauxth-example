@@ -24,3 +24,6 @@ config :argon2_elixir, t_cost: 2, m_cost: 8
 
 # Configures mailer for testing
 config :forks_the_egg_sample, ForksTheEggSampleWeb.Mailer, adapter: Bamboo.TestAdapter
+
+# Suppress log warming in test
+config :phauxth, log_level: :error
