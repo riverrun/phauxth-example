@@ -8,7 +8,7 @@ defmodule ForksTheEggSampleWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug Phauxth.Authenticate
-    plug Phauxth.Remember
+    plug Phauxth.Remember, create_session_func: &ForksTheEggSampleWeb.Auth.Utils.create_session/1
   end
 
   scope "/", ForksTheEggSampleWeb do

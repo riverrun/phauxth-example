@@ -10,9 +10,7 @@ defmodule ForksTheEggSample.Accounts do
   @doc """
   Returns the list of users.
   """
-  def list_users do
-    Repo.all(User)
-  end
+  def list_users, do: Repo.all(User)
 
   @doc """
   Gets a single user.
