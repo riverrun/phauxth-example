@@ -34,13 +34,6 @@ defmodule ForksTheEggSample.Accounts do
   def get_by(%{"user_id" => user_id}), do: Repo.get(User, user_id)
 
   @doc """
-  Creates a session for the user.
-
-  This is used by Phauxth.Remember.
-  """
-  def create_session(attrs), do: Sessions.create_session(attrs)
-
-  @doc """
   Creates a user.
   """
   def create_user(attrs \\ %{}) do
