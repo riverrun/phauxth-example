@@ -6,7 +6,6 @@ defmodule ForksTheEggSampleWeb.Auth.Login do
 
   use Phauxth.Login.Base
 
-  alias Comeonin.Argon2
   alias ForksTheEggSample.Accounts
 
   @impl true
