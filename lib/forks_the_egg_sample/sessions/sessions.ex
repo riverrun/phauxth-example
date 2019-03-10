@@ -18,7 +18,7 @@ defmodule ForksTheEggSample.Sessions do
   end
 
   @doc """
-  Gets a single user.
+  Gets a single valid session.
   """
   def get_session(id) do
     now = DateTime.utc_now()

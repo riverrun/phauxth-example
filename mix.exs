@@ -4,7 +4,7 @@ defmodule ForksTheEggSample.MixProject do
   def project do
     [
       app: :forks_the_egg_sample,
-      version: "2.0.0",
+      version: "2.1.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),

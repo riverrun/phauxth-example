@@ -8,7 +8,6 @@ defmodule ForksTheEggSampleWeb.Auth.Token do
   alias Phoenix.Token
   alias ForksTheEggSampleWeb.Endpoint
 
-  @max_age 14_400
   @token_salt "JaKgaBf2"
 
   @impl true
@@ -18,6 +17,6 @@ defmodule ForksTheEggSampleWeb.Auth.Token do
 
   @impl true
   def verify(token, opts \\ []) do
-    Token.verify(Endpoint, @token_salt, token, opts ++ [max_age: @max_age])
+    Token.verify(Endpoint, @token_salt, token, opts)
   end
 end
