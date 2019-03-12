@@ -7,6 +7,8 @@ defmodule ForksTheEggSampleWeb.UserController do
   alias ForksTheEggSample.{Accounts, Accounts.User}
   alias ForksTheEggSampleWeb.{Auth.Token, Email}
 
+  @dialyzer {:nowarn_function, new: 2}
+
   # the following plugs are defined in the controllers/authorize.ex file
   plug :user_check when action in [:index, :show]
   plug :id_check when action in [:edit, :update, :delete]

@@ -5,6 +5,17 @@ defmodule ForksTheEggSample.Accounts.User do
 
   alias ForksTheEggSample.Sessions.Session
 
+  @type t :: %__MODULE__{
+    id: integer,
+    email: String.t(),
+    password_hash: String.t(),
+    confirmed_at: DateTime.t() | nil,
+    reset_sent_at: DateTime.t() | nil,
+    sessions: %Ecto.Association.NotLoaded{} | [Session.t()],
+    inserted_at: DateTime.t(),
+    updated_at: DateTime.t()
+  }
+
   schema "users" do
     field(:email, :string)
     field(:password, :string, virtual: true)
@@ -31,12 +42,16 @@ defmodule ForksTheEggSample.Accounts.User do
     |> put_pass_hash
   end
 
-  def confirm_changeset(user) do
+  def confirm_changeset(%__MODULE__{} = user) do
     change(user, %{confirmed_at: DateTime.utc_now() |> DateTime.truncate(:second)})
   end
 
-  def password_reset_changeset(user, reset_sent_at) do
+  def password_reset_changeset(%__MODULE__{} = user, reset_sent_at) do
     change(user, %{reset_sent_at: reset_sent_at})
+  end
+
+  def password_updated_changeset(changeset) do
+    change(changeset, %{reset_sent_at: nil})
   end
 
   defp unique_email(changeset) do
