@@ -6,15 +6,15 @@ defmodule ForksTheEggSample.Accounts.User do
   alias ForksTheEggSample.Sessions.Session
 
   @type t :: %__MODULE__{
-    id: integer,
-    email: String.t(),
-    password_hash: String.t(),
-    confirmed_at: DateTime.t() | nil,
-    reset_sent_at: DateTime.t() | nil,
-    sessions: %Ecto.Association.NotLoaded{} | [Session.t()],
-    inserted_at: DateTime.t(),
-    updated_at: DateTime.t()
-  }
+          id: integer,
+          email: String.t(),
+          password_hash: String.t(),
+          confirmed_at: DateTime.t() | nil,
+          reset_sent_at: DateTime.t() | nil,
+          sessions: %Ecto.Association.NotLoaded{} | [Session.t()],
+          inserted_at: DateTime.t(),
+          updated_at: DateTime.t()
+        }
 
   schema "users" do
     field(:email, :string)
