@@ -4,7 +4,7 @@ defmodule ForksTheEggSampleWeb.SessionController do
   import ForksTheEggSampleWeb.Authorize
 
   alias Phauxth.Remember
-  alias ForksTheEggSample.Sessions
+  alias ForksTheEggSample.{Sessions, Sessions.Session}
   alias ForksTheEggSampleWeb.Auth.Login
 
   # the following plug is defined in the controllers/authorize.ex file
@@ -30,8 +30,10 @@ defmodule ForksTheEggSampleWeb.SessionController do
   end
 
   def delete(%Plug.Conn{assigns: %{current_user: %{id: user_id}}} = conn, %{"id" => session_id}) do
-    case session_id |> Sessions.get_session() |> Sessions.delete_session() do
-      {:ok, %{user_id: ^user_id}} ->
+    case Sessions.get_session(session_id) do
+      %Session{user_id: ^user_id} = session ->
+        Sessions.delete_session(session)
+
         conn
         |> delete_session(:phauxth_session_id)
         |> Remember.delete_rem_cookie()

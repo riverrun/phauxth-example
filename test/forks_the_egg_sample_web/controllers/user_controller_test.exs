@@ -16,7 +16,7 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
 
   describe "index" do
     test "lists all entries on index", %{conn: conn} do
-      user = add_user("reg@email.com")
+      user = add_user("reg@example.com")
       conn = conn |> add_session(user) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Users"
@@ -102,7 +102,7 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
   end
 
   defp add_user_session(%{conn: conn}) do
-    user = add_user("reg@email.com")
+    user = add_user("reg@example.com")
     conn = conn |> add_session(user) |> send_resp(:ok, "/")
     {:ok, %{conn: conn, user: user}}
   end
