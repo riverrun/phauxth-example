@@ -12,14 +12,14 @@
       <section class="container">
         <nav role="navigation">
           <ul>
-            <li><a href="<%= Routes.page_path(@conn, :index) %>">Home</a></li>
+            <li><%= link "Home", to: Routes.page_path(@conn, :index) %></li>
               <%= if @current_user do %>
-              <li><a href="<%= Routes.user_path(@conn, :index) %>">Users</a></li>
-              <li><a href="<%= Routes.user_path(@conn, :show, @current_user) %>"><%= @current_user.email %></a></li>
-              <li><%= link "Logout", to: Routes.session_path(@conn, :delete, current_session(@conn)), method: :delete %></li>
+                <li><%= link "Users", to: Routes.user_path(@conn, :index) %></li>
+                <li><%= link @current_user.email, to: Routes.user_path(@conn, :show, @current_user) %></li>
+                <li><%= link "Logout", to: Routes.session_path(@conn, :delete, current_session(@conn)), method: :delete %></li>
               <% else %>
-              <li><a href="<%= Routes.user_path(@conn, :new) %>">New user</a></li>
-              <li><a href="<%= Routes.session_path(@conn, :new) %>">Login</a></li>
+                <li><%= link "New user", to: Routes.user_path(@conn, :new) %></li>
+                <li><%= link "Login", to: Routes.session_path(@conn, :new) %></li>
               <% end %>
           </ul>
         </nav>

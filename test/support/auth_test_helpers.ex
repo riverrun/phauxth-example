@@ -1,7 +1,8 @@
-defmodule ForksTheEggSampleWeb.AuthCase do
+defmodule ForksTheEggSampleWeb.AuthTestHelpers do
   use Phoenix.ConnTest
 
   import Ecto.Changeset
+
   alias ForksTheEggSample.{Accounts, Repo, Sessions}
   alias ForksTheEggSampleWeb.Auth.Token
 

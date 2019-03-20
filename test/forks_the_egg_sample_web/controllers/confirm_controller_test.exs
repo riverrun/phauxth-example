@@ -1,7 +1,7 @@
 defmodule ForksTheEggSampleWeb.ConfirmControllerTest do
   use ForksTheEggSampleWeb.ConnCase
 
-  import ForksTheEggSampleWeb.AuthCase
+  import ForksTheEggSampleWeb.AuthTestHelpers
 
   setup %{conn: conn} do
     conn = conn |> bypass_through(ForksTheEggSample.Router, :browser) |> get("/")

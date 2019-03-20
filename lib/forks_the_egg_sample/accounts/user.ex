@@ -11,7 +11,7 @@ defmodule ForksTheEggSample.Accounts.User do
           password_hash: String.t(),
           confirmed_at: DateTime.t() | nil,
           reset_sent_at: DateTime.t() | nil,
-          sessions: %Ecto.Association.NotLoaded{} | [Session.t()],
+          sessions: [Session.t()] | %Ecto.Association.NotLoaded{},
           inserted_at: DateTime.t(),
           updated_at: DateTime.t()
         }

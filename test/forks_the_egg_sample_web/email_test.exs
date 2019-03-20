@@ -2,7 +2,7 @@ defmodule ForksTheEggSampleWeb.EmailTest do
   use ExUnit.Case
   use Bamboo.Test
 
-  import ForksTheEggSampleWeb.AuthCase
+  import ForksTheEggSampleWeb.AuthTestHelpers
   alias ForksTheEggSampleWeb.Email
 
   setup do

@@ -1,7 +1,7 @@
 defmodule ForksTheEggSampleWeb.PasswordResetControllerTest do
   use ForksTheEggSampleWeb.ConnCase
 
-  import ForksTheEggSampleWeb.AuthCase
+  import ForksTheEggSampleWeb.AuthTestHelpers
 
   @update_attrs %{email: "gladys@example.com", password: "^hEsdg*F899"}
 

@@ -1,7 +1,7 @@
 defmodule ForksTheEggSampleWeb.SessionControllerTest do
   use ForksTheEggSampleWeb.ConnCase
 
-  import ForksTheEggSampleWeb.AuthCase
+  import ForksTheEggSampleWeb.AuthTestHelpers
 
   @create_attrs %{email: "robin@example.com", password: "reallyHard2gue$$"}
   @invalid_attrs %{email: "robin@example.com", password: "cannotGue$$it"}
@@ -22,7 +22,7 @@ defmodule ForksTheEggSampleWeb.SessionControllerTest do
       user: user
     } do
       conn = conn |> add_session(user) |> send_resp(:ok, "/")
-      conn = get(conn, Routes.session_path(conn, :new))
+      conn = get(assign(conn, :current_user, user), Routes.session_path(conn, :new))
       assert redirected_to(conn) == Routes.page_path(conn, :index)
     end
   end
