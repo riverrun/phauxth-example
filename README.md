@@ -3,9 +3,9 @@
 An example app using the Phoenix web framework with the Phauxth
 authentication library.
 
-## Version 2.1.0 & 1.2
+## Version 2.2.0 & 1.2
 
-The master branch is an example using version 2.1.0 of Phauxth
+The master branch is an example using version 2.2.0 of Phauxth
 together with Phoenix 1.4.0.
 
 The v1.2 branch uses version 1.2 of Phauxth with version 1.3 of Phoenix.
@@ -16,7 +16,7 @@ To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd assets && npm install`
+  * Install Node.js dependencies with `(cd assets && npm install && node node_modules/webpack/bin/webpack.js --mode development)`
   * Start Phoenix endpoint with `mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.

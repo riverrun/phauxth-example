@@ -4,7 +4,7 @@ defmodule ForksTheEggSample.MixProject do
   def project do
     [
       app: :forks_the_egg_sample,
-      version: "2.1.0",
+      version: "2.2.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
@@ -45,10 +45,10 @@ defmodule ForksTheEggSample.MixProject do
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:dialyxir, "~> 1.0.0-rc.3", only: :dev, runtime: false},
-      {:phauxth, "~> 2.1.0"},
+      {:phauxth, "~> 2.2.0"},
       {:argon2_elixir, "~> 2.0"},
       {:bamboo, "~> 1.1"},
-      {:gettext, "~> 0.11"},
+      {:gettext, "~> 0.16"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"}
     ]
