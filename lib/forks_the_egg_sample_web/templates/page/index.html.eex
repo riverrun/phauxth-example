@@ -1,10 +1,16 @@
 <section class="phx-hero">
   <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
+  <h2><%= gettext "Oh yes, and welcome to Phauxth as well!" %> &#x1F609</h2>
+  <h3><%= gettext "A secure and extensible authentication library for Plug-based applications" %></h3>
 </section>
 
 <section class="container">
-  <h2><%= gettext "Oh yes, and welcome to Phauxth as well!" %></h2>
-  <h3>A secure and extensible authentication library for Plug-based applications</h3>
+  <p>
+  And here I would like to drone on and on and on about how wonderful Phauxth is,
+  but, ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh, it's getting rather late,
+  ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh, and I just can't seem to,
+  ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh, keep Zzzzzzzz
+  </p>
 </section>
 
 <section class="row">

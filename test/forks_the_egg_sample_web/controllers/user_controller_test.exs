@@ -19,7 +19,7 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
       user = add_user("reg@example.com")
       conn = conn |> add_session(user) |> send_resp(:ok, "/")
       conn = get(conn, Routes.user_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Users"
+      assert html_response(conn, 200) =~ "Listing users"
     end
 
     test "renders /users error for nil user", %{conn: conn} do
@@ -33,12 +33,12 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
 
     test "renders form for new users", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :new))
-      assert html_response(conn, 200) =~ "New User"
+      assert html_response(conn, 200) =~ "New user"
     end
 
     test "renders form for editing chosen user", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_path(conn, :edit, user))
-      assert html_response(conn, 200) =~ "Edit User"
+      assert html_response(conn, 200) =~ "Edit user"
     end
   end
 
@@ -47,7 +47,7 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
 
     test "show chosen user's page", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_path(conn, :show, user))
-      assert html_response(conn, 200) =~ "Show User"
+      assert html_response(conn, 200) =~ "Show user"
     end
   end
 
@@ -59,7 +59,7 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
 
     test "does not create user and renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @invalid_attrs)
-      assert html_response(conn, 200) =~ "New User"
+      assert html_response(conn, 200) =~ "New user"
     end
   end
 
@@ -80,7 +80,7 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
       user: user
     } do
       conn = put(conn, Routes.user_path(conn, :update, user), user: @invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit User"
+      assert html_response(conn, 200) =~ "Edit user"
     end
   end
 

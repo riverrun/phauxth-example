@@ -6,6 +6,11 @@ header nav ul {
   display: flex;
 }
 
-header nav li {
-  margin: 0 10px;
+header nav li a {
+  float: left;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 1.8rem;
 }
