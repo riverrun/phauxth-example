@@ -59,7 +59,7 @@ defmodule ForksTheEggSample.Accounts do
   end
 
   @doc """
-  Deletes a User.
+  Deletes a user.
   """
   @spec delete_user(User.t()) :: {:ok, User.t()} | changeset_error
   def delete_user(%User{} = user) do
@@ -75,11 +75,13 @@ defmodule ForksTheEggSample.Accounts do
   end
 
   @doc """
-  Confirms a user's email.
+  Confirms a user's account and email.
   """
   @spec confirm_user(User.t()) :: {:ok, User.t()} | changeset_error
   def confirm_user(%User{} = user) do
-    user |> User.confirm_changeset() |> Repo.update()
+    user
+    |> User.confirm_changeset(DateTime.truncate(DateTime.utc_now(), :second))
+    |> Repo.update()
   end
 
   @doc """
@@ -89,7 +91,7 @@ defmodule ForksTheEggSample.Accounts do
   def create_password_reset(attrs) do
     with %User{} = user <- get_by(attrs) do
       user
-      |> User.password_reset_changeset(DateTime.utc_now() |> DateTime.truncate(:second))
+      |> User.password_reset_changeset(DateTime.truncate(DateTime.utc_now(), :second))
       |> Repo.update()
     end
   end
@@ -102,8 +104,7 @@ defmodule ForksTheEggSample.Accounts do
     Sessions.delete_user_sessions(user)
 
     user
-    |> User.create_changeset(attrs)
-    |> User.password_updated_changeset()
+    |> User.update_password_changeset(attrs)
     |> Repo.update()
   end
 end

@@ -37,27 +37,35 @@ defmodule ForksTheEggSample.Accounts.User do
     user
     |> cast(attrs, [:email, :password])
     |> validate_required([:email, :password])
-    |> unique_email
+    |> unique_email()
     |> validate_password(:password)
     |> put_pass_hash
   end
 
-  def confirm_changeset(%__MODULE__{} = user) do
-    change(user, %{confirmed_at: DateTime.utc_now() |> DateTime.truncate(:second)})
+  def confirm_changeset(%__MODULE__{} = user, confirmed_at) do
+    change(user, %{confirmed_at: confirmed_at})
   end
 
   def password_reset_changeset(%__MODULE__{} = user, reset_sent_at) do
     change(user, %{reset_sent_at: reset_sent_at})
   end
 
-  def password_updated_changeset(changeset) do
-    change(changeset, %{reset_sent_at: nil})
+  def update_password_changeset(%__MODULE__{} = user, attrs) do
+    user
+    |> cast(attrs, [:password])
+    |> validate_required([:password])
+    |> validate_password(:password)
+    |> put_pass_hash()
+    |> change(%{reset_sent_at: nil})
   end
 
   defp unique_email(changeset) do
     changeset
-    |> validate_format(:email, ~r/@/)
-    |> validate_length(:email, max: 254)
+    |> validate_format(
+      :email,
+      ~r/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-\.]+\.[a-zA-Z]{2,}$/
+    )
+    |> validate_length(:email, max: 255)
     |> unique_constraint(:email)
   end
 

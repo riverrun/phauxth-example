@@ -2,15 +2,14 @@
 
 @import "./phoenix.css";
 
-header nav ul {
+header nav ul li {
   display: flex;
 }
 
-header nav li a {
-  float: left;
-  display: block;
+header nav ul li {
+  display: inline-block;
   text-align: center;
-  padding: 14px 16px;
+  padding: 0 10px;
   text-decoration: none;
   font-size: 1.8rem;
 }
