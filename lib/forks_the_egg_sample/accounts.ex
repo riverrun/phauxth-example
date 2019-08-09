@@ -18,8 +18,8 @@ defmodule ForksTheEggSample.Accounts do
   @doc """
   Gets a single user.
   """
-  @spec get_user(integer) :: User.t() | nil
-  def get_user(id), do: Repo.get(User, id)
+  @spec get_user!(integer) :: User.t() | nil
+  def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
   Gets a user based on the params.
@@ -29,14 +29,12 @@ defmodule ForksTheEggSample.Accounts do
   @spec get_by(map) :: User.t() | nil
   def get_by(%{"session_id" => session_id}) do
     with %Session{user_id: user_id} <- Sessions.get_session(session_id),
-         do: get_user(user_id)
+         do: Repo.get(User, user_id)
   end
 
   def get_by(%{"email" => email}) do
     Repo.get_by(User, email: email)
   end
-
-  def get_by(%{"user_id" => user_id}), do: Repo.get(User, user_id)
 
   @doc """
   Creates a user.

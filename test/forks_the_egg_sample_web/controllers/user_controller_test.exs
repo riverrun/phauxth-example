@@ -49,6 +49,12 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
       conn = get(conn, Routes.user_path(conn, :show, user))
       assert html_response(conn, 200) =~ "Show user"
     end
+
+    test "returns 404 when user not found", %{conn: conn} do
+      assert_error_sent 404, fn ->
+        get(conn, Routes.user_path(conn, :show, -1))
+      end
+    end
   end
 
   describe "create user" do
@@ -69,7 +75,7 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
     test "updates chosen user when data is valid", %{conn: conn, user: user} do
       conn = put(conn, Routes.user_path(conn, :update, user), user: @update_attrs)
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      updated_user = Accounts.get_user(user.id)
+      updated_user = Accounts.get_user!(user.id)
       assert updated_user.email == "william@example.com"
       conn = get(conn, Routes.user_path(conn, :show, user))
       assert html_response(conn, 200) =~ "william@example.com"
@@ -90,14 +96,14 @@ defmodule ForksTheEggSampleWeb.UserControllerTest do
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Routes.user_path(conn, :delete, user))
       assert redirected_to(conn) == Routes.session_path(conn, :new)
-      refute Accounts.get_user(user.id)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(user.id) end
     end
 
     test "cannot delete other user", %{conn: conn, user: user} do
       other = add_user("tony@example.com")
       conn = delete(conn, Routes.user_path(conn, :delete, other))
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-      assert Accounts.get_user(other.id)
+      assert Accounts.get_user!(other.id)
     end
   end
 
