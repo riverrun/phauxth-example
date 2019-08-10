@@ -3,23 +3,36 @@ defmodule ForksTheEggSampleWeb.Email do
   A module for sending emails to the user.
 
   This module provides functions to be used with the Phauxth authentication
-  library when confirming users or handling password resets. It uses
-  Bamboo, with the Mandrill adapter, to email users. For tests, it uses
-  a test adapter, which is configured in the config/test.exs file.
+  library when confirming users or handling password resets.
 
-  If you want to use a different email adapter, or another email
-  library, read the instructions below.
+  This example uses Bamboo to email users. If you do not want to use Bamboo,
+  see the `Using another email library` for instructions on how to adapt this
+  example.
 
-  ## Bamboo with a different adapter
+  For more information about Bamboo, see the [Bamboo README](https://github.com/thoughtbot/bamboo).
 
-  Bamboo has adapters for Mailgun, Mailjet, Mandrill, Sendgrid, SMTP,
-  SparkPost, PostageApp, Postmark and Sendcloud.
+  ## Bamboo adapters
 
-  There is also a LocalAdapter, which is great for local development.
+  Bamboo provides adapters for many popular emailing services, and you
+  can also create custom adapters by implementing the Bamboo.Adapter behaviour.
 
-  See [Bamboo](https://github.com/thoughtbot/bamboo) for more information.
+  This example is configured to use the MandrillAdapter in production, the
+  LocalAdapter in development, and the TestAdapter for tests. To use a
+  different adapter, edit the relevant config file.
 
-  ## Other email library
+  ## Email delivery
+
+  All emails in this module use the `deliver_later` function, which sends the
+  email straight away, but in the background. The behavior of this function
+  can be customized by implementing your own `Bamboo.DeliverLaterStrategy`
+  behaviour.
+
+  ## Viewing sent emails
+
+  The `Bamboo.SentEmailViewerPlug` has been added to the `router.ex` file. With this,
+  you can view the sent emails in your browser.
+
+  ## Using another email library
 
   If you do not want to use Bamboo, follow the instructions below:
 
@@ -27,7 +40,6 @@ defmodule ForksTheEggSampleWeb.Email do
   2. Remove the lib/forks_the_egg_sample/mailer.ex file
   3. Remove the Bamboo entries in the config/config.exs and config/test.exs files
   4. Remove bamboo from the deps section in the mix.exs file
-
   """
 
   import Bamboo.Email
@@ -37,53 +49,62 @@ defmodule ForksTheEggSampleWeb.Email do
   @doc """
   An email with a confirmation link in it.
   """
-  def confirm_request(address, key) do
-    prep_mail(address)
-    |> subject("Confirm your account")
-    |> text_body("Confirm your email here http://www.example.com/confirm?key=#{key}")
-    |> Mailer.deliver_now()
+  def confirm_request(address, link) do
+    address
+    |> base_email()
+    |> subject("Confirm email address")
+    |> html_body(
+      "<h3>Click on the link below to confirm this email address</h3><p><a href=#{link}>Confirm email</a></p>"
+    )
+    |> Mailer.deliver_later()
   end
 
   @doc """
   An email with a link to reset the password.
   """
   def reset_request(address, nil) do
-    prep_mail(address)
+    address
+    |> base_email()
     |> subject("Reset your password")
     |> text_body(
       "You requested a password reset, but no user is associated with the email you provided."
     )
-    |> Mailer.deliver_now()
+    |> Mailer.deliver_later()
   end
 
-  def reset_request(address, key) do
-    prep_mail(address)
+  def reset_request(address, link) do
+    address
+    |> base_email()
     |> subject("Reset your password")
-    |> text_body("Reset your password at http://www.example.com/password_resets/edit?key=#{key}")
-    |> Mailer.deliver_now()
+    |> html_body(
+      "<h3>Click on the link below to reset your password</h3><p><a href=#{link}>Password reset</a></p>"
+    )
+    |> Mailer.deliver_later()
   end
 
   @doc """
   An email acknowledging that the account has been successfully confirmed.
   """
   def confirm_success(address) do
-    prep_mail(address)
+    address
+    |> base_email()
     |> subject("Confirmed account")
     |> text_body("Your account has been confirmed.")
-    |> Mailer.deliver_now()
+    |> Mailer.deliver_later()
   end
 
   @doc """
   An email acknowledging that the password has been successfully reset.
   """
   def reset_success(address) do
-    prep_mail(address)
+    address
+    |> base_email()
     |> subject("Password reset")
     |> text_body("Your password has been reset.")
-    |> Mailer.deliver_now()
+    |> Mailer.deliver_later()
   end
 
-  defp prep_mail(address) do
+  defp base_email(address) do
     new_email()
     |> to(address)
     |> from("admin@example.com")

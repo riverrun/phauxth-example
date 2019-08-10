@@ -15,7 +15,7 @@ defmodule ForksTheEggSampleWeb.PasswordResetController do
         Token.sign(%{"email" => email})
       end
 
-    Email.reset_request(email, key)
+    Email.reset_request(email, Routes.password_reset_url(conn, :edit, key: key))
 
     conn
     |> put_flash(:info, "Check your inbox for instructions on how to reset your password")

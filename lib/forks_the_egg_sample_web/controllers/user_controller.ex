@@ -28,7 +28,7 @@ defmodule ForksTheEggSampleWeb.UserController do
       {:ok, %User{email: email} = user} ->
         Log.info(%Log{user: user.id, message: "user created"})
         key = Token.sign(%{"email" => email})
-        Email.confirm_request(email, key)
+        Email.confirm_request(email, Routes.confirm_url(conn, :index, key: key))
 
         conn
         |> put_flash(:info, "User created successfully.")

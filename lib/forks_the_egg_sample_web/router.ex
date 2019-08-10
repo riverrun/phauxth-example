@@ -17,9 +17,13 @@ defmodule ForksTheEggSampleWeb.Router do
     get "/", PageController, :index
     resources "/users", UserController
     resources "/sessions", SessionController, only: [:new, :create, :delete]
-    get "/confirm", ConfirmController, :index
+    get "/confirms", ConfirmController, :index
     resources "/password_resets", PasswordResetController, only: [:new, :create]
     get "/password_resets/edit", PasswordResetController, :edit
     put "/password_resets/update", PasswordResetController, :update
+  end
+
+  if Mix.env() == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 end

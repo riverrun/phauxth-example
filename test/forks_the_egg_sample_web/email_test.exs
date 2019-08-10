@@ -3,6 +3,7 @@ defmodule ForksTheEggSampleWeb.EmailTest do
   use Bamboo.Test
 
   import ForksTheEggSampleWeb.AuthTestHelpers
+
   alias ForksTheEggSampleWeb.Email
 
   setup do
@@ -11,10 +12,11 @@ defmodule ForksTheEggSampleWeb.EmailTest do
   end
 
   test "sends confirmation request email", %{email: email, key: key} do
-    sent_email = Email.confirm_request(email, key)
-    assert sent_email.subject =~ "Confirm your account"
-    assert sent_email.text_body =~ "email here http://www.example.com/confirm?key="
-    assert_delivered_email(Email.confirm_request(email, key))
+    link = "http://www.example.com/confirms?key=#{key}"
+    sent_email = Email.confirm_request(email, link)
+    assert sent_email.subject =~ "Confirm email address"
+    assert sent_email.html_body =~ "Click on the link below to confirm this email address"
+    assert_delivered_email(Email.confirm_request(email, link))
   end
 
   test "sends no user found message for password reset attempt" do
@@ -23,10 +25,11 @@ defmodule ForksTheEggSampleWeb.EmailTest do
   end
 
   test "sends reset password request email", %{email: email, key: key} do
-    sent_email = Email.reset_request(email, key)
+    link = "http://www.example.com/password_resets/edit?key=#{key}"
+    sent_email = Email.reset_request(email, link)
     assert sent_email.subject =~ "Reset your password"
-    assert sent_email.text_body =~ "password at http://www.example.com/password_resets/edit?key="
-    assert_delivered_email(Email.reset_request(email, key))
+    assert sent_email.html_body =~ "Click on the link below to reset your password"
+    assert_delivered_email(Email.reset_request(email, link))
   end
 
   test "sends receipt confirmation email", %{email: email} do
