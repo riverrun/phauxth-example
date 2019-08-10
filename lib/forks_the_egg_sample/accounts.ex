@@ -18,7 +18,7 @@ defmodule ForksTheEggSample.Accounts do
   @doc """
   Gets a single user.
   """
-  @spec get_user!(integer) :: User.t() | nil
+  @spec get_user!(integer) :: User.t() | no_return
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
